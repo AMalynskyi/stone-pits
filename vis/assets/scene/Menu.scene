@@ -1,0 +1,1088 @@
+{
+  "versionCode": 2,
+  "path": "scene/Menu.scene",
+  "width": 54.0,
+  "height": 20.0,
+  "pixelsPerUnit": 10.0,
+  "viewport": "STRETCH",
+  "physicsSettings": {
+    "physicsEnabled": false,
+    "gravityX": 0.0,
+    "gravityY": 0.0,
+    "allowSleep": false
+  },
+  "variables": {
+    "variables": []
+  },
+  "layers": [
+    {
+      "name": "Background",
+      "id": 0,
+      "locked": true,
+      "visible": true,
+      "cordsSystem": "WORLD",
+      "@class": "EditorLayer"
+    },
+    {
+      "name": "mid",
+      "id": 1,
+      "locked": true,
+      "visible": true,
+      "cordsSystem": "WORLD",
+      "@class": "EditorLayer"
+    },
+    {
+      "name": "frontlayer",
+      "id": 2,
+      "locked": false,
+      "visible": true,
+      "cordsSystem": "WORLD",
+      "@class": "EditorLayer"
+    }
+  ],
+  "activeLayerId": 2,
+  "groupIds": [],
+  "schemes": [
+    {
+      "components": [
+        {
+          "x": 0.0,
+          "y": 0.0,
+          "scaleX": 1.0,
+          "scaleY": 1.0,
+          "rotation": 0.0,
+          "@class": "Transform"
+        },
+        {
+          "originX": 27.0,
+          "originY": 10.0,
+          "@class": "Origin"
+        },
+        {
+          "tint": {
+            "r": 1.0,
+            "g": 1.0,
+            "b": 1.0,
+            "a": 1.0
+          },
+          "@class": "Tint"
+        },
+        {
+          "asset": {
+            "relativePath": "gfx/polygon.png",
+            "@class": "TextureRegionAsset"
+          },
+          "@class": "AssetReference"
+        },
+        {
+          "flipX": false,
+          "flipY": false,
+          "width": 54.0,
+          "height": 20.0,
+          "@class": "ProtoVisSprite"
+        },
+        {
+          "layerId": 0,
+          "@class": "Layer"
+        },
+        {
+          "groupIds": [],
+          "@class": "VisGroup"
+        },
+        {
+          "uuid": "edad0591-3f83-4062-906e-eb8e53694158",
+          "@class": "VisUUID"
+        },
+        {
+          "zIndex": 0,
+          "@class": "Renderable"
+        }
+      ],
+      "@class": "EntityScheme"
+    },
+    {
+      "components": [
+        {
+          "x": 33.0,
+          "y": 1.0,
+          "scaleX": 1.0,
+          "scaleY": 1.0,
+          "rotation": 0.0,
+          "@class": "Transform"
+        },
+        {
+          "originX": 5.3,
+          "originY": 2.95,
+          "@class": "Origin"
+        },
+        {
+          "tint": {
+            "r": 1.0,
+            "g": 1.0,
+            "b": 1.0,
+            "a": 1.0
+          },
+          "@class": "Tint"
+        },
+        {
+          "asset": {
+            "relativePath": "gfx/TxtPlay.png",
+            "@class": "TextureRegionAsset"
+          },
+          "@class": "AssetReference"
+        },
+        {
+          "flipX": false,
+          "flipY": false,
+          "width": 10.6,
+          "height": 5.9,
+          "@class": "ProtoVisSprite"
+        },
+        {
+          "layerId": 2,
+          "@class": "Layer"
+        },
+        {
+          "groupIds": [],
+          "@class": "VisGroup"
+        },
+        {
+          "uuid": "8b983512-7e7c-4aef-98e8-df1f35788894",
+          "@class": "VisUUID"
+        },
+        {
+          "zIndex": 0,
+          "@class": "Renderable"
+        },
+        {
+          "id": "play",
+          "@class": "VisID"
+        }
+      ],
+      "@class": "EntityScheme"
+    },
+    {
+      "components": [
+        {
+          "x": 14.0,
+          "y": -3.2,
+          "scaleX": 1.4,
+          "scaleY": 0.73,
+          "rotation": 0.0,
+          "@class": "Transform"
+        },
+        {
+          "originX": 13.2,
+          "originY": 13.2,
+          "@class": "Origin"
+        },
+        {
+          "tint": {
+            "r": 1.0,
+            "g": 1.0,
+            "b": 1.0,
+            "a": 1.0
+          },
+          "@class": "Tint"
+        },
+        {
+          "asset": {
+            "relativePath": "gfx/UIbg.png",
+            "@class": "TextureRegionAsset"
+          },
+          "@class": "AssetReference"
+        },
+        {
+          "flipX": false,
+          "flipY": false,
+          "width": 26.4,
+          "height": 26.4,
+          "@class": "ProtoVisSprite"
+        },
+        {
+          "layerId": 1,
+          "@class": "Layer"
+        },
+        {
+          "groupIds": [],
+          "@class": "VisGroup"
+        },
+        {
+          "uuid": "a57fb99f-92bd-435a-90bf-6dd6b44fa997",
+          "@class": "VisUUID"
+        },
+        {
+          "zIndex": 0,
+          "@class": "Renderable"
+        },
+        {
+          "@class": "VisID"
+        }
+      ],
+      "@class": "EntityScheme"
+    },
+    {
+      "components": [
+        {
+          "x": 11.0,
+          "y": 1.5,
+          "scaleX": 1.0,
+          "scaleY": 1.0,
+          "rotation": 0.0,
+          "@class": "Transform"
+        },
+        {
+          "originX": 5.4,
+          "originY": 2.7,
+          "@class": "Origin"
+        },
+        {
+          "tint": {
+            "r": 1.0,
+            "g": 1.0,
+            "b": 1.0,
+            "a": 1.0
+          },
+          "@class": "Tint"
+        },
+        {
+          "asset": {
+            "relativePath": "gfx/TxtQuit.png",
+            "@class": "TextureRegionAsset"
+          },
+          "@class": "AssetReference"
+        },
+        {
+          "flipX": false,
+          "flipY": false,
+          "width": 10.8,
+          "height": 5.4,
+          "@class": "ProtoVisSprite"
+        },
+        {
+          "layerId": 2,
+          "@class": "Layer"
+        },
+        {
+          "uuid": "f3a8d525-8146-4fc7-934d-c011a775f78f",
+          "@class": "VisUUID"
+        },
+        {
+          "zIndex": 0,
+          "@class": "Renderable"
+        },
+        {
+          "id": "quit",
+          "@class": "VisID"
+        }
+      ],
+      "@class": "EntityScheme"
+    },
+    {
+      "components": [
+        {
+          "x": 16.0,
+          "y": -6.0,
+          "scaleX": 1.0,
+          "scaleY": 1.0,
+          "rotation": 0.0,
+          "@class": "Transform"
+        },
+        {
+          "originX": 2.95,
+          "originY": 2.45,
+          "@class": "Origin"
+        },
+        {
+          "tint": {
+            "r": 1.0,
+            "g": 1.0,
+            "b": 1.0,
+            "a": 1.0
+          },
+          "@class": "Tint"
+        },
+        {
+          "asset": {
+            "relativePath": "gfx/soundoff.png",
+            "@class": "TextureRegionAsset"
+          },
+          "@class": "AssetReference"
+        },
+        {
+          "flipX": false,
+          "flipY": false,
+          "width": 5.9,
+          "height": 4.9,
+          "@class": "ProtoVisSprite"
+        },
+        {
+          "layerId": 2,
+          "@class": "Layer"
+        },
+        {
+          "uuid": "3fca8be5-a540-44fa-9cf6-49fc464881d9",
+          "@class": "VisUUID"
+        },
+        {
+          "zIndex": 0,
+          "@class": "Renderable"
+        },
+        {
+          "id": "soundoff",
+          "@class": "VisID"
+        }
+      ],
+      "@class": "EntityScheme"
+    },
+    {
+      "components": [
+        {
+          "x": 24.0,
+          "y": 1.5,
+          "scaleX": 1.0,
+          "scaleY": 1.0,
+          "rotation": 0.0,
+          "@class": "Transform"
+        },
+        {
+          "originX": 2.95,
+          "originY": 2.45,
+          "@class": "Origin"
+        },
+        {
+          "tint": {
+            "r": 1.0,
+            "g": 1.0,
+            "b": 1.0,
+            "a": 1.0
+          },
+          "@class": "Tint"
+        },
+        {
+          "asset": {
+            "relativePath": "gfx/soundon.png",
+            "@class": "TextureRegionAsset"
+          },
+          "@class": "AssetReference"
+        },
+        {
+          "flipX": false,
+          "flipY": false,
+          "width": 5.9,
+          "height": 4.9,
+          "@class": "ProtoVisSprite"
+        },
+        {
+          "layerId": 2,
+          "@class": "Layer"
+        },
+        {
+          "uuid": "3e3f0b93-a939-4bbc-a228-76bc2c207537",
+          "@class": "VisUUID"
+        },
+        {
+          "zIndex": 0,
+          "@class": "Renderable"
+        },
+        {
+          "id": "soundon",
+          "@class": "VisID"
+        }
+      ],
+      "@class": "EntityScheme"
+    },
+    {
+      "components": [
+        {
+          "x": 14.0,
+          "y": 14.0,
+          "scaleX": 0.7,
+          "scaleY": 0.5499985,
+          "rotation": 0.0,
+          "@class": "Transform"
+        },
+        {
+          "originX": 2.3,
+          "originY": 3.3,
+          "@class": "Origin"
+        },
+        {
+          "tint": {
+            "r": 1.0,
+            "g": 1.0,
+            "b": 1.0,
+            "a": 1.0
+          },
+          "@class": "Tint"
+        },
+        {
+          "asset": {
+            "relativePath": "gfx/Letters/letterS.png",
+            "@class": "TextureRegionAsset"
+          },
+          "@class": "AssetReference"
+        },
+        {
+          "flipX": false,
+          "flipY": false,
+          "width": 4.6,
+          "height": 6.6,
+          "@class": "ProtoVisSprite"
+        },
+        {
+          "layerId": 2,
+          "@class": "Layer"
+        },
+        {
+          "groupIds": [
+            0
+          ],
+          "@class": "VisGroup"
+        },
+        {
+          "uuid": "e1a15806-ce18-4a31-a70a-2c8e3b6660e1",
+          "@class": "VisUUID"
+        },
+        {
+          "zIndex": 0,
+          "@class": "Renderable"
+        }
+      ],
+      "@class": "EntityScheme"
+    },
+    {
+      "components": [
+        {
+          "x": 16.0,
+          "y": 14.0,
+          "scaleX": 0.7,
+          "scaleY": 0.5499985,
+          "rotation": 0.0,
+          "@class": "Transform"
+        },
+        {
+          "originX": 2.6,
+          "originY": 3.2,
+          "@class": "Origin"
+        },
+        {
+          "tint": {
+            "r": 1.0,
+            "g": 1.0,
+            "b": 1.0,
+            "a": 1.0
+          },
+          "@class": "Tint"
+        },
+        {
+          "asset": {
+            "relativePath": "gfx/Letters/letterT.png",
+            "@class": "TextureRegionAsset"
+          },
+          "@class": "AssetReference"
+        },
+        {
+          "flipX": false,
+          "flipY": false,
+          "width": 5.2,
+          "height": 6.4,
+          "@class": "ProtoVisSprite"
+        },
+        {
+          "layerId": 2,
+          "@class": "Layer"
+        },
+        {
+          "groupIds": [
+            0
+          ],
+          "@class": "VisGroup"
+        },
+        {
+          "uuid": "b2d63b37-5bec-4190-910c-06e00f8245a4",
+          "@class": "VisUUID"
+        },
+        {
+          "zIndex": 0,
+          "@class": "Renderable"
+        }
+      ],
+      "@class": "EntityScheme"
+    },
+    {
+      "components": [
+        {
+          "x": 18.0,
+          "y": 14.0,
+          "scaleX": 0.7,
+          "scaleY": 0.5499985,
+          "rotation": 0.0,
+          "@class": "Transform"
+        },
+        {
+          "originX": 3.0,
+          "originY": 3.3,
+          "@class": "Origin"
+        },
+        {
+          "tint": {
+            "r": 1.0,
+            "g": 1.0,
+            "b": 1.0,
+            "a": 1.0
+          },
+          "@class": "Tint"
+        },
+        {
+          "asset": {
+            "relativePath": "gfx/Letters/letterO.png",
+            "@class": "TextureRegionAsset"
+          },
+          "@class": "AssetReference"
+        },
+        {
+          "flipX": false,
+          "flipY": false,
+          "width": 6.0,
+          "height": 6.6,
+          "@class": "ProtoVisSprite"
+        },
+        {
+          "layerId": 2,
+          "@class": "Layer"
+        },
+        {
+          "groupIds": [
+            0
+          ],
+          "@class": "VisGroup"
+        },
+        {
+          "uuid": "07106f66-d176-4e65-acff-6fb3ce59b829",
+          "@class": "VisUUID"
+        },
+        {
+          "zIndex": 0,
+          "@class": "Renderable"
+        }
+      ],
+      "@class": "EntityScheme"
+    },
+    {
+      "components": [
+        {
+          "x": 21.0,
+          "y": 14.0,
+          "scaleX": 0.7,
+          "scaleY": 0.55,
+          "rotation": 0.0,
+          "@class": "Transform"
+        },
+        {
+          "originX": 2.65,
+          "originY": 3.2,
+          "@class": "Origin"
+        },
+        {
+          "tint": {
+            "r": 1.0,
+            "g": 1.0,
+            "b": 1.0,
+            "a": 1.0
+          },
+          "@class": "Tint"
+        },
+        {
+          "asset": {
+            "relativePath": "gfx/Letters/letterN.png",
+            "@class": "TextureRegionAsset"
+          },
+          "@class": "AssetReference"
+        },
+        {
+          "flipX": false,
+          "flipY": false,
+          "width": 5.3,
+          "height": 6.4,
+          "@class": "ProtoVisSprite"
+        },
+        {
+          "layerId": 2,
+          "@class": "Layer"
+        },
+        {
+          "groupIds": [
+            0
+          ],
+          "@class": "VisGroup"
+        },
+        {
+          "uuid": "64ae72cb-d32d-4160-88ca-9fdfc6d5fc0f",
+          "@class": "VisUUID"
+        },
+        {
+          "zIndex": 0,
+          "@class": "Renderable"
+        },
+        {
+          "@class": "VisID"
+        }
+      ],
+      "@class": "EntityScheme"
+    },
+    {
+      "components": [
+        {
+          "x": 25.0,
+          "y": 14.0,
+          "scaleX": 0.7,
+          "scaleY": 0.5499985,
+          "rotation": 0.0,
+          "@class": "Transform"
+        },
+        {
+          "originX": 2.25,
+          "originY": 3.2,
+          "@class": "Origin"
+        },
+        {
+          "tint": {
+            "r": 1.0,
+            "g": 1.0,
+            "b": 1.0,
+            "a": 1.0
+          },
+          "@class": "Tint"
+        },
+        {
+          "asset": {
+            "relativePath": "gfx/Letters/letterE.png",
+            "@class": "TextureRegionAsset"
+          },
+          "@class": "AssetReference"
+        },
+        {
+          "flipX": false,
+          "flipY": false,
+          "width": 4.5,
+          "height": 6.4,
+          "@class": "ProtoVisSprite"
+        },
+        {
+          "layerId": 2,
+          "@class": "Layer"
+        },
+        {
+          "groupIds": [
+            0
+          ],
+          "@class": "VisGroup"
+        },
+        {
+          "uuid": "51301262-65a7-4ba5-a852-d7bf426a650d",
+          "@class": "VisUUID"
+        },
+        {
+          "zIndex": 0,
+          "@class": "Renderable"
+        }
+      ],
+      "@class": "EntityScheme"
+    },
+    {
+      "components": [
+        {
+          "x": 32.0,
+          "y": 14.0,
+          "scaleX": 0.7,
+          "scaleY": 0.5499985,
+          "rotation": 0.0,
+          "@class": "Transform"
+        },
+        {
+          "originX": 1.1,
+          "originY": 3.2,
+          "@class": "Origin"
+        },
+        {
+          "tint": {
+            "r": 1.0,
+            "g": 1.0,
+            "b": 1.0,
+            "a": 1.0
+          },
+          "@class": "Tint"
+        },
+        {
+          "asset": {
+            "relativePath": "gfx/Letters/letterI.png",
+            "@class": "TextureRegionAsset"
+          },
+          "@class": "AssetReference"
+        },
+        {
+          "flipX": false,
+          "flipY": false,
+          "width": 2.2,
+          "height": 6.4,
+          "@class": "ProtoVisSprite"
+        },
+        {
+          "layerId": 2,
+          "@class": "Layer"
+        },
+        {
+          "groupIds": [
+            0
+          ],
+          "@class": "VisGroup"
+        },
+        {
+          "uuid": "ad7d3b94-2c38-4837-ab07-b8558a3de619",
+          "@class": "VisUUID"
+        },
+        {
+          "zIndex": 0,
+          "@class": "Renderable"
+        }
+      ],
+      "@class": "EntityScheme"
+    },
+    {
+      "components": [
+        {
+          "x": 33.0,
+          "y": 14.0,
+          "scaleX": 0.7,
+          "scaleY": 0.5499985,
+          "rotation": 0.0,
+          "@class": "Transform"
+        },
+        {
+          "originX": 2.6,
+          "originY": 3.2,
+          "@class": "Origin"
+        },
+        {
+          "tint": {
+            "r": 1.0,
+            "g": 1.0,
+            "b": 1.0,
+            "a": 1.0
+          },
+          "@class": "Tint"
+        },
+        {
+          "asset": {
+            "relativePath": "gfx/Letters/letterT.png",
+            "@class": "TextureRegionAsset"
+          },
+          "@class": "AssetReference"
+        },
+        {
+          "flipX": false,
+          "flipY": false,
+          "width": 5.2,
+          "height": 6.4,
+          "@class": "ProtoVisSprite"
+        },
+        {
+          "layerId": 2,
+          "@class": "Layer"
+        },
+        {
+          "groupIds": [
+            0
+          ],
+          "@class": "VisGroup"
+        },
+        {
+          "uuid": "c73f4bd2-62ba-4ccf-8799-d976a02378c7",
+          "@class": "VisUUID"
+        },
+        {
+          "zIndex": 0,
+          "@class": "Renderable"
+        }
+      ],
+      "@class": "EntityScheme"
+    },
+    {
+      "components": [
+        {
+          "x": 36.0,
+          "y": 14.0,
+          "scaleX": 0.7,
+          "scaleY": 0.5499985,
+          "rotation": 0.0,
+          "@class": "Transform"
+        },
+        {
+          "originX": 2.3,
+          "originY": 3.3,
+          "@class": "Origin"
+        },
+        {
+          "tint": {
+            "r": 1.0,
+            "g": 1.0,
+            "b": 1.0,
+            "a": 1.0
+          },
+          "@class": "Tint"
+        },
+        {
+          "asset": {
+            "relativePath": "gfx/Letters/letterS.png",
+            "@class": "TextureRegionAsset"
+          },
+          "@class": "AssetReference"
+        },
+        {
+          "flipX": false,
+          "flipY": false,
+          "width": 4.6,
+          "height": 6.6,
+          "@class": "ProtoVisSprite"
+        },
+        {
+          "layerId": 2,
+          "@class": "Layer"
+        },
+        {
+          "groupIds": [
+            0
+          ],
+          "@class": "VisGroup"
+        },
+        {
+          "uuid": "11dca8e5-df72-4f82-a2d1-76b7270efb49",
+          "@class": "VisUUID"
+        },
+        {
+          "zIndex": 0,
+          "@class": "Renderable"
+        }
+      ],
+      "@class": "EntityScheme"
+    },
+    {
+      "components": [
+        {
+          "x": 29.0,
+          "y": 14.0,
+          "scaleX": 0.7,
+          "scaleY": 0.5499985,
+          "rotation": 0.0,
+          "@class": "Transform"
+        },
+        {
+          "originX": 2.4,
+          "originY": 3.25,
+          "@class": "Origin"
+        },
+        {
+          "tint": {
+            "r": 1.0,
+            "g": 1.0,
+            "b": 1.0,
+            "a": 1.0
+          },
+          "@class": "Tint"
+        },
+        {
+          "asset": {
+            "relativePath": "gfx/Letters/letterP.png",
+            "@class": "TextureRegionAsset"
+          },
+          "@class": "AssetReference"
+        },
+        {
+          "flipX": false,
+          "flipY": false,
+          "width": 4.8,
+          "height": 6.5,
+          "@class": "ProtoVisSprite"
+        },
+        {
+          "layerId": 2,
+          "@class": "Layer"
+        },
+        {
+          "groupIds": [
+            0
+          ],
+          "@class": "VisGroup"
+        },
+        {
+          "uuid": "592525e8-ce5a-4091-ad28-7039cdb26161",
+          "@class": "VisUUID"
+        },
+        {
+          "zIndex": 0,
+          "@class": "Renderable"
+        }
+      ],
+      "@class": "EntityScheme"
+    },
+    {
+      "components": [
+        {
+          "x": 2.0,
+          "y": 9.0,
+          "scaleX": 0.7,
+          "scaleY": 1.05,
+          "rotation": 0.0,
+          "@class": "Transform"
+        },
+        {
+          "originX": 25.399996,
+          "originY": 0.8,
+          "@class": "Origin"
+        },
+        {
+          "tint": {
+            "r": 0.039215688,
+            "g": 0.85490197,
+            "b": 1.0,
+            "a": 0.90588236
+          },
+          "@class": "Tint"
+        },
+        {
+          "asset": {
+            "fontParameter": {
+              "flip": false,
+              "genMipMaps": false,
+              "minFilter": "Nearest",
+              "magFilter": "Nearest"
+            },
+            "relativePath": "font/font.fnt",
+            "@class": "BmpFontAsset"
+          },
+          "@class": "AssetReference"
+        },
+        {
+          "pixelsPerUnits": 10.0,
+          "scale": 0.1,
+          "@class": "PixelsPerUnit"
+        },
+        {
+          "text": "To drop - use your mouse MIDDLE",
+          "autoSetOriginToCenter": true,
+          "isUsesDistanceField": false,
+          "@class": "ProtoVisText"
+        },
+        {
+          "layerId": 2,
+          "@class": "Layer"
+        },
+        {
+          "groupIds": [],
+          "@class": "VisGroup"
+        },
+        {
+          "uuid": "51c3df65-e08a-48b9-80f1-fd18cc590bc1",
+          "@class": "VisUUID"
+        },
+        {
+          "zIndex": 0,
+          "@class": "Renderable"
+        },
+        {
+          "@class": "VisID"
+        },
+        {
+          "componentsToDrop": [
+            {
+              "@content": "PixelsPerUnit",
+              "@class": "Class"
+            }
+          ],
+          "@class": "ExporterDropsComponent"
+        }
+      ],
+      "@class": "EntityScheme"
+    },
+    {
+      "components": [
+        {
+          "x": 4.0,
+          "y": 12.0,
+          "scaleX": 0.7,
+          "scaleY": 1.05,
+          "rotation": 0.0,
+          "@class": "Transform"
+        },
+        {
+          "originX": 23.399996,
+          "originY": 0.8,
+          "@class": "Origin"
+        },
+        {
+          "tint": {
+            "r": 0.039215688,
+            "g": 0.85490197,
+            "b": 1.0,
+            "a": 0.90588236
+          },
+          "@class": "Tint"
+        },
+        {
+          "asset": {
+            "fontParameter": {
+              "flip": false,
+              "genMipMaps": false,
+              "minFilter": "Nearest",
+              "magFilter": "Nearest"
+            },
+            "relativePath": "font/font.fnt",
+            "@class": "BmpFontAsset"
+          },
+          "@class": "AssetReference"
+        },
+        {
+          "pixelsPerUnits": 10.0,
+          "scale": 0.1,
+          "@class": "PixelsPerUnit"
+        },
+        {
+          "text": "To grab - use your mouse LEFT",
+          "autoSetOriginToCenter": true,
+          "isUsesDistanceField": false,
+          "@class": "ProtoVisText"
+        },
+        {
+          "layerId": 2,
+          "@class": "Layer"
+        },
+        {
+          "groupIds": [],
+          "@class": "VisGroup"
+        },
+        {
+          "uuid": "fb73802d-735c-473c-a22b-9482e0d90336",
+          "@class": "VisUUID"
+        },
+        {
+          "zIndex": 0,
+          "@class": "Renderable"
+        },
+        {
+          "@class": "VisID"
+        },
+        {
+          "componentsToDrop": [
+            {
+              "@content": "PixelsPerUnit",
+              "@class": "Class"
+            }
+          ],
+          "@class": "ExporterDropsComponent"
+        }
+      ],
+      "@class": "EntityScheme"
+    }
+  ]
+}

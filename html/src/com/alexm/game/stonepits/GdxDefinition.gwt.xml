@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE module PUBLIC "-//Google Inc.//DTD Google Web Toolkit trunk//EN" "http://google-web-toolkit.googlecode.com/svn/trunk/distro-source/core/src/gwt-module.dtd">
+<module rename-to="html">
+	<inherits name='com.badlogic.gdx.backends.gdx_backends_gwt' />
+	<inherits name='com.badlogic.gdx.physics.box2d.box2d-gwt' />
+
+	<!--<inherits name="com.artemis.backends.artemis_backends_gwt"/>-->
+
+	<inherits name='com.kotcrab.vis.vis-runtime' />
+	<extend-configuration-property name="gdx.reflect.include" value="com.kotcrab.vis.runtime.util"/>
+	<extend-configuration-property name="gdx.reflect.include" value="com.kotcrab.vis.runtime.system"/>
+	<extend-configuration-property name="gdx.reflect.include" value="com.kotcrab.vis.runtime.system.render"/>
+	<extend-configuration-property name="gdx.reflect.include" value="com.kotcrab.vis.runtime.scene"/>
+	<extend-configuration-property name="gdx.reflect.include" value="com.kotcrab.vis.runtime.data"/>
+	<extend-configuration-property name="gdx.reflect.include" value="com.kotcrab.vis.runtime.util"/>
+	<extend-configuration-property name="gdx.reflect.include" value="com.kotcrab.vis.runtime.component"/>
+
+	<inherits name='com.artemis'/>
+	<extend-configuration-property name="gdx.reflect.include" value="com.artemis.managers.PlayerManager"/>
+	<extend-configuration-property name="gdx.reflect.include" value="com.artemis.BaseSystem"/>
+	<extend-configuration-property name="gdx.reflect.include" value="com.artemis.Component"/>
+	<extend-configuration-property name="gdx.reflect.include" value="com.artemis.Entity"/>
+	<extend-configuration-property name="gdx.reflect.include" value="com.artemis.ComponentMapper"/>
+	<extend-configuration-property name="gdx.reflect.include" value="com.artemis.systems.EntityProcessingSystem"/>
+	<extend-configuration-property name="gdx.reflect.include" value="com.artemis.Aspect"/>
+	<extend-configuration-property name="gdx.reflect.include" value="com.artemis.systems.IteratingSystem"/>
+	<extend-configuration-property name="gdx.reflect.include" value="com.artemis.Manager"/>
+	<extend-configuration-property name="gdx.reflect.include" value="com.artemis.utils.IntBag"/>
+	<extend-configuration-property name="gdx.reflect.include" value="com.artemis.utils"/>
+	<extend-configuration-property name="gdx.reflect.include" value="com.artemis.systems"/>
+	<extend-configuration-property name="gdx.reflect.include" value="com.artemis"/>
+	<extend-configuration-property name="gdx.reflect.include" value="com.artemis.injection"/>
+
+	<inherits name='com.badlogic.gdx' />
+	<extend-configuration-property name="gdx.reflect.include" value="com.badlogic.gdx.utils" />
+	<extend-configuration-property name="gdx.reflect.exclude" value="com.badlogic.gdx.utils.compression.lzma.Decoder"/>
+
+	<extend-configuration-property name="gdx.reflect.exclude" value="com.badlogic.gdx.graphics.g3d" />
+	<extend-configuration-property name="gdx.reflect.exclude" value="com.badlogic.gdx.graphics.g3d.model.data.ModelTexture"/>
+	<extend-configuration-property name="gdx.reflect.exclude" value="com.badlogic.gdx.graphics.g3d.model.data.ModelData"/>
+	<extend-configuration-property name="gdx.reflect.exclude" value="com.badlogic.gdx.graphics.g3d.model.data.ModelMaterial"/>
+	<extend-configuration-property name="gdx.reflect.exclude" value="com.badlogic.gdx.graphics.g3d.model.data.ModelNodePart"/>
+	<extend-configuration-property name="gdx.reflect.exclude" value="com.badlogic.gdx.graphics.g3d.model.data.ModelAnimation"/>
+	<extend-configuration-property name="gdx.reflect.exclude" value="com.badlogic.gdx.graphics.g3d.model.data.ModelNodeAnimation"/>
+	<extend-configuration-property name="gdx.reflect.exclude" value="com.badlogic.gdx.graphics.g3d.model.data.ModelMeshPart"/>
+	<extend-configuration-property name="gdx.reflect.exclude" value="com.badlogic.gdx.graphics.g3d.model.data.ModelNode"/>
+	<extend-configuration-property name="gdx.reflect.exclude" value="com.badlogic.gdx.graphics.g3d.model.data.ModelNodeKeyframe"/>
+	<extend-configuration-property name="gdx.reflect.exclude" value="com.badlogic.gdx.scenes.scene2d.ui.Touchpad"/>
+	<extend-configuration-property name="gdx.reflect.exclude" value="com.badlogic.gdx.scenes.scene2d.ui.HorizontalGroup"/>
+	<extend-configuration-property name="gdx.reflect.exclude" value="com.badlogic.gdx.scenes.scene2d.ui.WidgetGroup"/>
+	<extend-configuration-property name="gdx.reflect.exclude" value="com.badlogic.gdx.scenes.scene2d.ui.Value"/>
+	<extend-configuration-property name="gdx.reflect.exclude" value="com.badlogic.gdx.scenes.scene2d.ui.Cell"/>
+	<extend-configuration-property name="gdx.reflect.exclude" value="com.badlogic.gdx.scenes.scene2d.ui.Container"/>
+	<extend-configuration-property name="gdx.reflect.exclude" value="com.badlogic.gdx.scenes.scene2d.ui.VerticalGroup"/>
+	<extend-configuration-property name="gdx.reflect.exclude" value="com.badlogic.gdx.scenes.scene2d.ui.Image"/>
+	<extend-configuration-property name="gdx.reflect.exclude" value="com.badlogic.gdx.scenes.scene2d.ui.TextField"/>
+	<extend-configuration-property name="gdx.reflect.exclude" value="com.badlogic.gdx.scenes.scene2d.ui.SplitPane"/>
+	<extend-configuration-property name="gdx.reflect.exclude" value="com.badlogic.gdx.scenes.scene2d.ui.TooltipManager"/>
+	<extend-configuration-property name="gdx.reflect.exclude" value="com.badlogic.gdx.scenes.scene2d.ui.Window"/>
+	<extend-configuration-property name="gdx.reflect.exclude" value="com.badlogic.gdx.scenes.scene2d.ui.ImageButton"/>
+	<extend-configuration-property name="gdx.reflect.exclude" value="com.badlogic.gdx.scenes.scene2d.ui.Dialog"/>
+	<extend-configuration-property name="gdx.reflect.exclude" value="com.badlogic.gdx.scenes.scene2d.ui.SelectBox"/>
+	<extend-configuration-property name="gdx.reflect.exclude" value="com.badlogic.gdx.scenes.scene2d.ui.Slider"/>
+	<extend-configuration-property name="gdx.reflect.exclude" value="com.badlogic.gdx.scenes.scene2d.ui.CheckBox"/>
+	<extend-configuration-property name="gdx.reflect.exclude" value="com.badlogic.gdx.graphics.g3d.particles"/>
+	<extend-configuration-property name="gdx.reflect.exclude" value="com.badlogic.gdx.graphics.g3d.particles.emitters"/>
+	<extend-configuration-property name="gdx.reflect.exclude" value="com.badlogic.gdx.graphics.g3d.particles.emitters.Emitter"/>
+	<extend-configuration-property name="gdx.reflect.exclude" value="com.badlogic.gdx.graphics.g3d.particles.values"/>
+	<extend-configuration-property name="gdx.reflect.exclude" value="com.badlogic.gdx.graphics.g3d.particles.influencers.ParticleControllerFinalizerInfluencer"/>
+	<extend-configuration-property name="gdx.reflect.exclude" value="com.badlogic.gdx.graphics.g3d.particles.emitters.RegularEmitter"/>
+	<extend-configuration-property name="gdx.reflect.exclude" value="com.badlogic.gdx.graphics.g3d.particles.influencers.ScaleInfluencer"/>
+	<extend-configuration-property name="gdx.reflect.exclude" value="com.badlogic.gdx.graphics.g3d.particles.influencers.DynamicsModifier"/>
+	<extend-configuration-property name="gdx.reflect.exclude" value="com.badlogic.gdx.graphics.g3d.particles.influencers.RegionInfluencer"/>
+	<extend-configuration-property name="gdx.reflect.exclude" value="com.badlogic.gdx.graphics.g3d.particles.values.UnweightedMeshSpawnShapeValue"/>
+	<extend-configuration-property name="gdx.reflect.exclude" value="com.badlogic.gdx.graphics.g3d.particles.values.CylinderSpawnShapeValue"/>
+	<extend-configuration-property name="gdx.reflect.exclude" value="com.badlogic.gdx.graphics.g3d.particles.influencers.Influencer"/>
+	<extend-configuration-property name="gdx.reflect.exclude" value="com.badlogic.gdx.graphics.g3d.particles.influencers.SimpleInfluencer"/>
+	<extend-configuration-property name="gdx.reflect.exclude" value="com.badlogic.gdx.graphics.g3d.particles.influencers.ColorInfluencer"/>
+	<extend-configuration-property name="gdx.reflect.exclude" value="com.badlogic.gdx.graphics.g3d.particles.influencers.DynamicsInfluencer"/>
+	<extend-configuration-property name="gdx.reflect.exclude" value="com.badlogic.gdx.graphics.g3d.particles.influencers.ModelInfluencer"/>
+	<extend-configuration-property name="gdx.reflect.exclude" value="com.badlogic.gdx.graphics.g3d.particles.influencers.ParticleControllerInfluencer"/>
+	<extend-configuration-property name="gdx.reflect.exclude" value="com.badlogic.gdx.graphics.g3d.particles.influencers.SpawnInfluencer"/>
+	<extend-configuration-property name="gdx.reflect.exclude" value="com.artemis.io.SaveFileFormat"/>
+	<extend-configuration-property name="gdx.reflect.exclude" value="com.badlogic.gdx.Net"/>
+	<extend-configuration-property name="gdx.reflect.exclude" value="com.badlogic.gdx.utils.compression.lzma"/>
+	<extend-configuration-property name="gdx.reflect.exclude" value="com.badlogic.gdx.graphics.g3d.particles.renderers"/>
+	<extend-configuration-property name="gdx.reflect.exclude" value="com.kotcrab.vis.runtime.util.autotable"/>
+
+	<extend-configuration-property name="gdx.reflect.exclude" value="com.badlogic.gdx.scenes.scene2d.Actor"/>
+	<extend-configuration-property name="gdx.reflect.exclude" value="com.badlogic.gdx.scenes.scene2d.InputEvent"/>
+	<extend-configuration-property name="gdx.reflect.exclude" value="com.badlogic.gdx.scenes.scene2d.InputListener"/>
+	<extend-configuration-property name="gdx.reflect.exclude" value="com.badlogic.gdx.scenes.scene2d.actions"/>
+
+	<extend-configuration-property name="gdx.reflect.exclude" value="com.artemis.io.SaveFileFormat"/>
+
+	<extend-configuration-property name="gdx.reflect.exclude" value="com.badlogic.gdx.graphics.g2d" />
+
+
+	<inherits name='StonePits' />
+	<extend-configuration-property name="gdx.reflect.include" value="com.alexm.game.stonepits" />
+	<extend-configuration-property name="gdx.reflect.include" value="com.alexm.game.stonepits.StonePits" />
+	<extend-configuration-property name="gdx.reflect.include" value="com.alexm.game.stonepits.entity.system.SpriteBoundsSystem" />
+	<extend-configuration-property name="gdx.reflect.include" value="com.alexm.game.stonepits.entity.system.PitsSystem" />
+	<extend-configuration-property name="gdx.reflect.include" value="com.alexm.game.stonepits.entity.system.FulfillMainScene" />
+	<extend-configuration-property name="gdx.reflect.include" value="com.alexm.game.stonepits.entity.component.Bounds" />
+	<extend-configuration-property name="gdx.reflect.include" value="com.alexm.game.stonepits.entity.component.Pit" />
+	<extend-configuration-property name="gdx.reflect.include" value="com.alexm.game.stonepits.entity.component.Stone" />
+	<extend-configuration-property name="gdx.reflect.include" value="com.alexm.game.stonepits.entity.component.StonePosition" />
+	<extend-configuration-property name="gdx.reflect.include" value="com.alexm.game.stonepits.manager.BaseSceneManager" />
+	<extend-configuration-property name="gdx.reflect.include" value="com.alexm.game.stonepits.manager.GameSceneManager" />
+	<extend-configuration-property name="gdx.reflect.include" value="com.alexm.game.stonepits.manager.MenuSceneManager" />
+	<extend-configuration-property name="gdx.reflect.include" value="com.alexm.game.stonepits.manager.SoundManager" />
+
+	<extend-configuration-property name="artemis.reflect.include" value="com.alexm.game.stonepits" />
+	<extend-configuration-property name="artemis.reflect.include" value="com.alexm.game.stonepits.StonePits" />
+	<extend-configuration-property name="artemis.reflect.include" value="com.alexm.game.stonepits.entity.system.SpriteBoundsSystem" />
+	<extend-configuration-property name="artemis.reflect.include" value="com.alexm.game.stonepits.entity.system.PitsSystem" />
+	<extend-configuration-property name="artemis.reflect.include" value="com.alexm.game.stonepits.entity.system.FulfillMainScene" />
+	<extend-configuration-property name="artemis.reflect.include" value="com.alexm.game.stonepits.entity.component.Bounds" />
+	<extend-configuration-property name="artemis.reflect.include" value="com.alexm.game.stonepits.entity.component.Pit" />
+	<extend-configuration-property name="artemis.reflect.include" value="com.alexm.game.stonepits.entity.component.Stone" />
+	<extend-configuration-property name="artemis.reflect.include" value="com.alexm.game.stonepits.entity.component.StonePosition" />
+	<extend-configuration-property name="artemis.reflect.include" value="com.alexm.game.stonepits.manager.BaseSceneManager" />
+	<extend-configuration-property name="artemis.reflect.include" value="com.alexm.game.stonepits.manager.GameSceneManager" />
+	<extend-configuration-property name="artemis.reflect.include" value="com.alexm.game.stonepits.manager.MenuSceneManager" />
+	<extend-configuration-property name="artemis.reflect.include" value="com.alexm.game.stonepits.manager.SoundManager" />
+
+
+	<entry-point class='com.alexm.game.stonepits.client.HtmlLauncher' />
+	<set-configuration-property name='xsiframe.failIfScriptTag' value='FALSE'/>
+	<set-configuration-property name="gdx.assetpath" value="../core/assets" />
+</module>

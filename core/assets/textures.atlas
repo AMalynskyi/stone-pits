@@ -1,0 +1,307 @@
+
+textures.png
+size: 1024,1024
+format: RGBA8888
+filter: Nearest,Nearest
+repeat: none
+font/arial
+  rotate: false
+  xy: 2, 506
+  size: 512, 512
+  orig: 512, 512
+  offset: 0, 0
+  index: -1
+font/font
+  rotate: false
+  xy: 516, 762
+  size: 256, 256
+  orig: 256, 256
+  offset: 0, 0
+  index: -1
+gfx/Letters/letterA
+  rotate: false
+  xy: 268, 31
+  size: 61, 64
+  orig: 61, 64
+  offset: 0, 0
+  index: -1
+gfx/Letters/letterB
+  rotate: false
+  xy: 346, 95
+  size: 50, 66
+  orig: 50, 66
+  offset: 0, 0
+  index: -1
+gfx/Letters/letterC
+  rotate: false
+  xy: 516, 544
+  size: 52, 66
+  orig: 52, 66
+  offset: 0, 0
+  index: -1
+gfx/Letters/letterD
+  rotate: false
+  xy: 612, 156
+  size: 54, 66
+  orig: 54, 66
+  offset: 0, 0
+  index: -1
+gfx/Letters/letterE
+  rotate: false
+  xy: 597, 314
+  size: 45, 64
+  orig: 45, 64
+  offset: 0, 0
+  index: -1
+gfx/Letters/letterF
+  rotate: false
+  xy: 624, 513
+  size: 44, 64
+  orig: 44, 64
+  offset: 0, 0
+  index: -1
+gfx/Letters/letterG
+  rotate: false
+  xy: 398, 112
+  size: 52, 66
+  orig: 52, 66
+  offset: 0, 0
+  index: -1
+gfx/Letters/letterH
+  rotate: false
+  xy: 544, 312
+  size: 51, 64
+  orig: 51, 64
+  offset: 0, 0
+  index: -1
+gfx/Letters/letterI
+  rotate: false
+  xy: 842, 862
+  size: 22, 64
+  orig: 22, 64
+  offset: 0, 0
+  index: -1
+gfx/Letters/letterJ
+  rotate: false
+  xy: 836, 794
+  size: 42, 66
+  orig: 42, 66
+  offset: 0, 0
+  index: -1
+gfx/Letters/letterK
+  rotate: false
+  xy: 331, 29
+  size: 53, 64
+  orig: 53, 64
+  offset: 0, 0
+  index: -1
+gfx/Letters/letterL
+  rotate: false
+  xy: 647, 447
+  size: 44, 64
+  orig: 44, 64
+  offset: 0, 0
+  index: -1
+gfx/Letters/letterM
+  rotate: false
+  xy: 774, 862
+  size: 66, 64
+  orig: 66, 64
+  offset: 0, 0
+  index: -1
+gfx/Letters/letterN
+  rotate: false
+  xy: 711, 696
+  size: 53, 64
+  orig: 53, 64
+  offset: 0, 0
+  index: -1
+gfx/Letters/letterO
+  rotate: false
+  xy: 774, 794
+  size: 60, 66
+  orig: 60, 66
+  offset: 0, 0
+  index: -1
+gfx/Letters/letterP
+  rotate: false
+  xy: 597, 446
+  size: 48, 65
+  orig: 48, 65
+  offset: 0, 0
+  index: -1
+gfx/Letters/letterQ
+  rotate: false
+  xy: 570, 645
+  size: 60, 79
+  orig: 60, 79
+  offset: 0, 0
+  index: -1
+gfx/Letters/letterR
+  rotate: false
+  xy: 544, 378
+  size: 51, 65
+  orig: 51, 65
+  offset: 0, 0
+  index: -1
+gfx/Letters/letterS
+  rotate: false
+  xy: 880, 796
+  size: 46, 66
+  orig: 46, 66
+  offset: 0, 0
+  index: -1
+gfx/Letters/letterT
+  rotate: false
+  xy: 570, 513
+  size: 52, 64
+  orig: 52, 64
+  offset: 0, 0
+  index: -1
+gfx/Letters/letterU
+  rotate: false
+  xy: 544, 445
+  size: 51, 66
+  orig: 51, 66
+  offset: 0, 0
+  index: -1
+gfx/Letters/letterV
+  rotate: false
+  xy: 570, 579
+  size: 61, 64
+  orig: 61, 64
+  offset: 0, 0
+  index: -1
+gfx/Letters/letterW
+  rotate: false
+  xy: 268, 97
+  size: 76, 64
+  orig: 76, 64
+  offset: 0, 0
+  index: -1
+gfx/Letters/letterX
+  rotate: false
+  xy: 884, 918
+  size: 58, 64
+  orig: 58, 64
+  offset: 0, 0
+  index: -1
+gfx/Letters/letterY
+  rotate: false
+  xy: 633, 594
+  size: 57, 64
+  orig: 57, 64
+  offset: 0, 0
+  index: -1
+gfx/Letters/letterZ
+  rotate: false
+  xy: 597, 380
+  size: 50, 64
+  orig: 50, 64
+  offset: 0, 0
+  index: -1
+gfx/TxtPlay
+  rotate: false
+  xy: 268, 163
+  size: 106, 59
+  orig: 106, 59
+  offset: 0, 0
+  index: -1
+gfx/TxtQuit
+  rotate: false
+  xy: 774, 928
+  size: 108, 54
+  orig: 108, 54
+  offset: 0, 0
+  index: -1
+gfx/UIbg
+  rotate: false
+  xy: 2, 38
+  size: 264, 264
+  orig: 264, 264
+  offset: 0, 0
+  index: -1
+gfx/big_pit
+  rotate: false
+  xy: 516, 612
+  size: 52, 112
+  orig: 52, 112
+  offset: 0, 0
+  index: -1
+gfx/gameover
+  rotate: false
+  xy: 268, 224
+  size: 412, 78
+  orig: 412, 78
+  offset: 0, 0
+  index: -1
+gfx/player
+  rotate: false
+  xy: 774, 984
+  size: 165, 34
+  orig: 165, 34
+  offset: 0, 0
+  index: -1
+gfx/player1
+  rotate: false
+  xy: 516, 726
+  size: 193, 34
+  orig: 193, 34
+  offset: 0, 0
+  index: -1
+gfx/player2
+  rotate: false
+  xy: 2, 2
+  size: 196, 34
+  orig: 196, 34
+  offset: 0, 0
+  index: -1
+gfx/polygon
+  rotate: false
+  xy: 2, 304
+  size: 540, 200
+  orig: 540, 200
+  offset: 0, 0
+  index: -1
+gfx/small_pit
+  rotate: false
+  xy: 866, 864
+  size: 52, 52
+  orig: 52, 52
+  offset: 0, 0
+  index: -1
+gfx/soundoff
+  rotate: false
+  xy: 490, 173
+  size: 59, 49
+  orig: 59, 49
+  offset: 0, 0
+  index: -1
+gfx/soundon
+  rotate: false
+  xy: 551, 173
+  size: 59, 49
+  orig: 59, 49
+  offset: 0, 0
+  index: -1
+gfx/stone
+  rotate: false
+  xy: 774, 776
+  size: 17, 16
+  orig: 17, 16
+  offset: 0, 0
+  index: -1
+gfx/won
+  rotate: false
+  xy: 376, 180
+  size: 112, 42
+  orig: 112, 42
+  offset: 0, 0
+  index: -1
+particle/particle-star
+  rotate: false
+  xy: 632, 660
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: -1
