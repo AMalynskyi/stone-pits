@@ -14,10 +14,13 @@ import com.kotcrab.vis.runtime.system.VisIDManager;
 import java.util.Iterator;
 
 /**
- * User: Oleksandr Malynskyi
- * Date: 03/24/17
+ * System for pits entities processing:
+ * - calculate core stone positions coordinates
+ * - calculate and adjust coordinates for pit score text entity
  */
 public class PitsSystem extends EntityProcessingSystem {
+
+    /*Injecting component mappers*/
 
     private ComponentMapper<Pit> pitsCm;
     private ComponentMapper<Bounds> boundsCm;
@@ -26,11 +29,13 @@ public class PitsSystem extends EntityProcessingSystem {
     private ComponentMapper<Tint> tintCm;
     private ComponentMapper<Transform> transformCm;
 
+    /*Injecting managers*/
+
     private VisIDManager idManager;
     private VisGroupManager groupManager;
 
     /**
-     * Creates a new EntityProcessingSystem.
+     * Creates a new PitsSystem with sprite aspect to react on a sprite object changes
      */
     public PitsSystem() {
         super(Aspect.all(VisSprite.class));
@@ -39,11 +44,20 @@ public class PitsSystem extends EntityProcessingSystem {
     @Override
     public void removed(Entity e) {}
 
+    /**
+     * For every created in a game frame pit entities:
+     * - create Pit component
+     * - calculate stones core positions coordinates
+     * - create Text entity for pit score text
+     * - calculate Score Text entity coordinates on the frame for every pit
+     * @param entity to process
+     */
     @Override
     public void inserted(Entity entity) {
 
         VisID visID = entity.getComponent(VisID.class);
 
+        //for all pits, small & big
         if(visID != null && (visID.id.startsWith("bp") || visID.id.startsWith("sp"))) {
             if (visID.id.startsWith("bp"))
                 pitsCm.create(entity).markAsBigPit(true);
@@ -52,22 +66,20 @@ public class PitsSystem extends EntityProcessingSystem {
 
             Bounds pitRect = boundsCm.get(entity);
 
-            VisSprite stoneTemplate = spriteCm.get(idManager.get("stone"));
-            VisSprite stoneSprite = new VisSprite(stoneTemplate);
-            VisText scoreTemplate = textCm.get(idManager.get("pitscore"));
+            VisSprite stoneSprite = spriteCm.get(idManager.get("stone"));
 
-            float stepX = pitRect.bounds.getWidth() / 5;
-            float stepY = pitRect.bounds.getHeight() / 5;
+            Entity score = idManager.get("pitscore");
+            VisText scoreTemplate = textCm.get(score);
+            Transform scoreTransformTemp = transformCm.get(score);
 
-            Pit pit = pitsCm.get(entity);
-            pit.setEntity(entity);
+            //Create Score Text entity from existing template and calculate it's coordinates
 
             Transform scoreTransform = new Transform(
                     pitRect.getX() + pitRect.bounds.getWidth()/2 - scoreTemplate.getWidth()/2,
                     pitRect.getY(),
-                    transformCm.get(idManager.get("pitscore")).getScaleX(),
-                    transformCm.get(idManager.get("pitscore")).getScaleY(),
-                    transformCm.get(idManager.get("pitscore")).getRotation()
+                    scoreTransformTemp.getScaleX(),
+                    scoreTransformTemp.getScaleY(),
+                    scoreTransformTemp.getRotation()
             );
 
             VisText text = new VisText(scoreTemplate);
@@ -77,11 +89,19 @@ public class PitsSystem extends EntityProcessingSystem {
                     .add(new Renderable(0))
                     .add(new Layer(2))
                     .add(text)
-                    .add(new Tint(tintCm.get(idManager.get("pitscore")).getTint()))
+                    .add(new Tint(tintCm.get(score).getTint()))
                     .add(scoreTransform)
                     .add(new Origin());
 
+            // Calculate initial core stone positions coordinates
+
+            Pit pit = pitsCm.get(entity);
+            pit.setEntity(entity);
+
             pit.setPitScoreText(ent);
+
+            float stepX = pitRect.bounds.getWidth() / 5;
+            float stepY = pitRect.bounds.getHeight() / 5;
 
             float stoneX = pitRect.bounds.getX(), stoneY = pitRect.bounds.getY();
             Iterator<StonePosition> iterator = pit.getCorePositions().iterator();
@@ -114,6 +134,11 @@ public class PitsSystem extends EntityProcessingSystem {
         }
     }
 
+    /**
+     * During every render for Pit entity updating\processing adjust score text position
+     * Because 1-symbol number text and 2-symbols number text need to be centered with different coordinates
+     * @param e entity to process
+     */
     @Override
     protected void process(Entity e) {
 
@@ -123,9 +148,9 @@ public class PitsSystem extends EntityProcessingSystem {
 
             Bounds pitRect = boundsCm.get(e);
 
-            VisText score = textCm.get(e.getComponent(Pit.class).getPitScoreText());
-
             Pit pit = pitsCm.get(e);
+
+            VisText score = textCm.get(pit.getPitScoreText());
 
             Transform scoreTransform = pit.getPitScoreText().getComponent(Transform.class);
             scoreTransform.setPosition(

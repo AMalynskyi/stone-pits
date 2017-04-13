@@ -13,35 +13,49 @@ import com.kotcrab.vis.runtime.system.VisIDManager;
 import com.kotcrab.vis.runtime.system.render.RenderBatchingSystem;
 
 /**
- * Draw players score and stones ordering
- * User: Oleksandr Malynskyi
- * Date: 03/21/17
+ * System to perform initial game preparation:
+ * - getting stone Sprite as the template
+ * - creating every 6 stones for all small pits of both users
+ * - mark rendering system as ready to draw
  */
 public class FulfillMainScene extends BaseEntitySystem {
 
-    private ComponentMapper<Bounds> boundsCm;
-    private ComponentMapper<VisSprite> spriteCm;
-    private ComponentMapper<Pit> smallPitCm;
+    /*
+     * Injections of components mappers
+     * Injections are driven by Artemis World class
+     */
 
+    /**Mapper to get Bounds for entity*/
+    private ComponentMapper<Bounds> boundsCm;
+    /**Mapper to get Sprite object for entity*/
+    private ComponentMapper<VisSprite> spriteCm;
+    /**Mapper to get Pit object for entity*/
+    private ComponentMapper<Pit> pitCm;
+
+    /**Manager to serve entities belonging to specific player*/
     private PlayerManager playerManager;
+    /**Manager of entities groups with specific group id*/
     private VisGroupManager groupManager;
+    /**Manager that allows retrieving of entities knowing VisId value assigned in VisEditor during scene design*/
     private VisIDManager idManager;
 
-    private StonePits game;
-    private SoundManager soundManager;
+    /**Injection of render system*/
     private RenderBatchingSystem renderSystem;
 
+    /**Reference to game application listener*/
+    private StonePits game;
+    /**Reference to sound manager*/
+    private SoundManager soundManager;
 
-    private VisSprite stoneTemplate;
-
-    private Array<Pit> sp1s = new Array<Pit>(), sp2s = new Array<Pit>();
+    /**Small pits Arrays of both users*/
+    private Array<Pit> sp1s = new Array<>(), sp2s = new Array<>();
 
 
     /**
-     * Creates an entity system that uses the specified aspect as a matcher
+     * Creates an entity system that uses VisSprite aspect as a matcher
      * against entities.
      *
-     * @param aspect to match against entities
+     * @param game Reference to game application listener
      */
     public FulfillMainScene(StonePits game) {
         super(Aspect.all(VisSprite.class));
@@ -49,44 +63,51 @@ public class FulfillMainScene extends BaseEntitySystem {
         soundManager = game.getSoundManager();
     }
 
-
+    /**
+     * On the very first step of system initiation do stones initial creation and disposition
+     */
     @Override
     protected void begin() {
 
         Entity bp1 = idManager.get("bp_1");
         Entity bp2 = idManager.get("bp_2");
 
-        stoneTemplate = spriteCm.get(idManager.get("stone"));
+        //stone template
+        VisSprite stoneTemplate = spriteCm.get(idManager.get("stone"));
 
+        //collect all small pits of player1
         Array<Entity> p1Pits =  groupManager.get("Player1Pits");
         for(Entity pit : p1Pits){
             playerManager.setPlayer(pit, GameSceneManager.PL1);
 
             if(!pit.equals(bp1)) {
-                sp1s.add(smallPitCm.get(pit));
+                sp1s.add(pitCm.get(pit));
             }
         }
 
+        //collect all small pits of player2
         Array<Entity> p2Pits =  groupManager.get("Player2Pits");
 
         for(Entity pit : p2Pits){
             playerManager.setPlayer(pit, GameSceneManager.PL2);
 
             if(!pit.equals(bp2)) {
-                sp2s.add(smallPitCm.get(pit));
+                sp2s.add(pitCm.get(pit));
             }
         }
 
-        Array<Pit> pits = new Array<Pit>();
+        Array<Pit> pits = new Array<>();
         pits.addAll(sp1s);
         pits.addAll(sp2s);
 
+        //for all players small pits create 6 stones and put them in a correct positions
         for(Pit pit : pits){
 
             for(int i=0; i < pit.getCorePositions().size() ; i++) {
 
-                //PUT STONE IN A PIT
+                //create new sprite from template
                 VisSprite stoneSprite = new VisSprite(stoneTemplate);
+                //use transform component to set coordinates for graphics drawing
                 Transform stoneTransform = new Transform();
 
                 Entity ent = world.createEntity();
@@ -102,14 +123,13 @@ public class FulfillMainScene extends BaseEntitySystem {
             soundManager.playDrop();
 
         }
-
+        //mark render system as required to draw
         renderSystem.markDirty();
 
+        //that's it, current system did the job and should be disabled, not to execute every further rendering event
         setEnabled(false);
     }
 
     @Override
-    protected void processSystem() {
-
-    }
+    protected void processSystem() {}
 }

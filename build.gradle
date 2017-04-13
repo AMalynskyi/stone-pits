@@ -79,9 +79,7 @@ project(":core") {
         compile fileTree(dir: 'libs', include: '*.jar')
 
         testCompile "junit:junit:4.+"
-        testCompile "org.mockito:mockito-all:2.+"
         testCompile "org.assertj:assertj-core:3.+"
-
 
         testCompile fileTree(dir: 'libs', include: '*.jar')
         testCompile "com.badlogicgames.gdx:gdx-backend-headless:$gdxVersion"

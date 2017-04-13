@@ -7,15 +7,15 @@ import com.artemis.systems.IteratingSystem;
 import com.kotcrab.vis.runtime.component.Transform;
 import com.kotcrab.vis.runtime.component.VisSprite;
 
-
 /**
  * System for sprite objects bounds fulfill
- *
+ * Every Sprite object need to be calculated to have own bounds component
  */
 public class SpriteBoundsSystem extends IteratingSystem {
 
-	private ComponentMapper<Bounds> boundsCm;
+	/*Injections for component mappers*/
 
+	private ComponentMapper<Bounds> boundsCm;
 	private ComponentMapper<VisSprite> spriteCm;
 	private ComponentMapper<Transform> transformCm;
 
@@ -26,6 +26,10 @@ public class SpriteBoundsSystem extends IteratingSystem {
 		super(Aspect.all(VisSprite.class));
 	}
 
+	/**
+	 * Calculate bounds coordinates for newly sprite entity
+	 * @param entityId of sprite
+	 */
 	@Override
 	protected void inserted(int entityId) {
 		boundsCm.create(entityId);
