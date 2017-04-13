@@ -31,8 +31,8 @@ public class GameSceneManager extends  BaseSceneManager {
     private Entity turnText;
 
 
-    private LinkedList<Entity> p1Pits = new LinkedList<Entity>();
-    private LinkedList<Entity> p2Pits = new LinkedList<Entity>();
+    private LinkedList<Entity> p1Pits = new LinkedList<>();
+    private LinkedList<Entity> p2Pits = new LinkedList<>();
     private Entity bp1, bp2;
     private LinkedList<Entity> p1SmallPits;
     private LinkedList<Entity> p2SmallPits;
@@ -46,7 +46,7 @@ public class GameSceneManager extends  BaseSceneManager {
 
     private RenderBatchingSystem renderSystem;
 
-    LinkedList<Entity> flyStones = new LinkedList<Entity>();
+    LinkedList<Entity> flyStones = new LinkedList<>();
 
     public static final String PL1 = "PLAYER1", PL2 = "PLAYER2";
 
@@ -76,10 +76,10 @@ public class GameSceneManager extends  BaseSceneManager {
             p2Pits.add(idManager.get("sp2_" + i));
         }
         bp1 = idManager.get("bp_1");
-        p1SmallPits = new LinkedList<Entity>(p1Pits);
+        p1SmallPits = new LinkedList<>(p1Pits);
         p1Pits.add(bp1);
         bp2 = idManager.get("bp_2");
-        p2SmallPits = new LinkedList<Entity>(p2Pits);
+        p2SmallPits = new LinkedList<>(p2Pits);
         p2Pits.add(bp2);
 
         star1 = idManager.get("star1");
@@ -177,7 +177,7 @@ public class GameSceneManager extends  BaseSceneManager {
 
                     Pit pit = findPit(x, y, whoseTurn);
 
-                    //capture is possible only from small pits
+                    //capture is possible only from FULL small pits
                     if (pit != null && !pit.getEntity().equals(bp1) && !pit.getEntity().equals(bp2)
                             && pit.getStones().size() > 0) {
                         captureStones(x, y, pit);
@@ -186,7 +186,7 @@ public class GameSceneManager extends  BaseSceneManager {
                 }
 
             }
-        }else if(game.getGameState() == StonePits.GameState.MESSAGE){
+        }else if(game.isGameMessage()){
             turnText.edit().add(new Invisible());
             game.gameRunning();
         }

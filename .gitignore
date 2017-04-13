@@ -61,3 +61,16 @@ core/build/tmp/**/*.*
 desctop/build/tmp/**/*.*
 build/**/*.*
 *.log
+/core/build/reports/
+/core/build/dependency-cache/
+/core/build/tmp/
+/core/build/classes/
+/core/build/integration-test-results/
+/core/build/test-results/
+/core/build/resources/
+/desktop/build/tmp/
+/desktop/build/classes/
+/desktop/build/dependency-cache/
+/html/build/tmp/
+/build/classes/
+/.gradle/

@@ -1,25 +1,9 @@
 package com.alexm.game.stonepits.manager;
 
-import com.badlogic.gdx.Game;
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input;
-import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;
-import com.badlogic.gdx.graphics.GL20;
-import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.BitmapFont;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.math.MathUtils;
-import com.badlogic.gdx.math.Rectangle;
-import com.badlogic.gdx.math.Vector3;
-import com.badlogic.gdx.utils.Array;
-import com.badlogic.gdx.utils.TimeUtils;
 import com.kotcrab.vis.runtime.component.VisSound;
 import com.kotcrab.vis.runtime.scene.VisAssetManager;
-
-import java.util.Iterator;
 
 /**
  * User: Oleksandr Malynskyi
@@ -28,8 +12,8 @@ import java.util.Iterator;
 public class SoundManager{
 
     private boolean enabled = true;
-   	private Music mainTheme, menuTheme, music;
-   	private Sound grab, drop, win, over;
+   	public Music mainTheme, menuTheme, music;
+   	public Sound grab, drop, win, over;
 
    	public SoundManager (VisAssetManager manager) {
 

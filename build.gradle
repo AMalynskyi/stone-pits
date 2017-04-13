@@ -14,7 +14,7 @@ allprojects {
     apply plugin: "eclipse"
     apply plugin: "idea"
 
-    version = '1.0'
+    version = '1.1'
     ext {
         appName = "stone-pits"
         gdxVersion = '1.9.6'
@@ -66,15 +66,99 @@ project(":html") {
 project(":core") {
     apply plugin: "java"
 
+    sourceCompatibility = 1.8
+
+    sourceSets.test.java.srcDirs = ["/test"]
+    sourceSets.test.resources.srcDirs = ["/assets"]
+
 
     dependencies {
         compile "com.badlogicgames.gdx:gdx-backend-lwjgl:$gdxVersion"
         compile "com.badlogicgames.gdx:gdx:$gdxVersion"
         compile "net.onedaybeard.artemis:artemis-odb:1.3.1"
         compile fileTree(dir: 'libs', include: '*.jar')
-    }
-}
 
-tasks.eclipse.doLast {
-    delete ".project"
+        testCompile "junit:junit:4.+"
+        testCompile "org.mockito:mockito-all:2.+"
+        testCompile "org.assertj:assertj-core:3.+"
+
+
+        testCompile fileTree(dir: 'libs', include: '*.jar')
+        testCompile "com.badlogicgames.gdx:gdx-backend-headless:$gdxVersion"
+        testCompile "com.badlogicgames.gdx:gdx:$gdxVersion:sources"
+        testCompile "com.badlogicgames.gdx:gdx-backend-lwjgl:$gdxVersion"
+        testCompile "net.onedaybeard.artemis:artemis-odb:1.3.1"
+
+        testCompile "com.badlogicgames.gdx:gdx-platform:$gdxVersion:natives-desktop"
+        testCompile "com.badlogicgames.gdx:gdx-box2d-platform:$gdxVersion:natives-desktop"
+    }
+
+    tasks.test.useJUnit{
+        includeCategories 'com.alexm.game.stonepits.UnitTestCategory'
+    }
+
+    tasks.test.testLogging{
+        events "passed", "skipped", "failed", "standardOut"
+        showExceptions true
+        exceptionFormat "full"
+        showCauses true
+        showStackTraces true
+
+        // set options for log level
+        debug {
+            events "started", "passed", "skipped", "failed", "standardOut", "standardError"
+            exceptionFormat "full"
+        }
+        info.events = debug.events
+        info.exceptionFormat = debug.exceptionFormat
+
+    }
+
+    task testIntegration(type: Test){
+
+        group = LifecycleBasePlugin.VERIFICATION_GROUP
+        description = 'Runs the integration tests.'
+
+        testLogging {
+            // set options for log level LIFECYCLE
+            events "passed", "skipped", "failed", "standardOut"
+            showExceptions true
+            exceptionFormat "full"
+            showCauses true
+            showStackTraces true
+
+            // set options for log level DEBUG and INFO
+            debug {
+                events "started", "passed", "skipped", "failed", "standardOut", "standardError"
+                exceptionFormat "full"
+            }
+            info.events = debug.events
+            info.exceptionFormat = debug.exceptionFormat
+
+            afterSuite { desc, result ->
+                if (!desc.parent) { // will match the outermost suite
+                    def output = "Results: ${result.resultType} (${result.testCount} tests, ${result.successfulTestCount} successes, ${result.failedTestCount} failures, ${result.skippedTestCount} skipped)"
+                    def startItem = '|  ', endItem = '  |'
+                    def repeatLength = startItem.length() + output.length() + endItem.length()
+                    println('\n' + ('-' * repeatLength) + '\n' + startItem + output + endItem + '\n' + ('-' * repeatLength))
+                }
+            }
+        }
+
+        reports {
+            html.destination = "$buildDir/reports/integration-test"
+            junitXml.destination = "$buildDir/integration-test-results"
+        }
+
+        useJUnit{
+                includeCategories 'com.alexm.game.stonepits.IntegrationTestCategory'
+            }
+
+    }
+    check.dependsOn testIntegration
+
+    task testAll(dependsOn: ['test', 'testIntegration'])
+
+    check.dependsOn testAll
+
 }

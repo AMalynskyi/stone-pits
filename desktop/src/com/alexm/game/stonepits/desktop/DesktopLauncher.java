@@ -1,6 +1,7 @@
 package com.alexm.game.stonepits.desktop;
 
 import com.alexm.game.stonepits.StonePits;
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplication;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplicationConfiguration;
 
@@ -12,6 +13,14 @@ public class DesktopLauncher {
 		config.height=200;
 		config.width=540;
 		config.resizable=false;
-		new LwjglApplication(new StonePits(), config);
+		config.forceExit=false;
+
+		try {
+			new LwjglApplication(new StonePits(), config);
+		} catch (Exception e) {
+
+			Gdx.app.error("LAUNCH", e.getMessage(), e);
+			throw e;
+		}
 	}
 }

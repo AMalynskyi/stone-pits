@@ -31,16 +31,13 @@ public class PitsSystem extends EntityProcessingSystem {
 
     /**
      * Creates a new EntityProcessingSystem.
-     *
-     * @param aspect the aspect to match entities
      */
     public PitsSystem() {
         super(Aspect.all(VisSprite.class));
     }
 
     @Override
-    public void removed(Entity e) {
-    }
+    public void removed(Entity e) {}
 
     @Override
     public void inserted(Entity entity) {

@@ -4,7 +4,6 @@ import com.alexm.game.stonepits.entity.component.Bounds;
 import com.artemis.Aspect;
 import com.artemis.ComponentMapper;
 import com.artemis.systems.IteratingSystem;
-import com.kotcrab.vis.runtime.component.Origin;
 import com.kotcrab.vis.runtime.component.Transform;
 import com.kotcrab.vis.runtime.component.VisSprite;
 
@@ -40,7 +39,5 @@ public class SpriteBoundsSystem extends IteratingSystem {
 	}
 
 	@Override
-	protected void process(int entityId) {
-
-	}
+	protected void process(int entityId) {}
 }
