@@ -58,7 +58,7 @@ task dist(dependsOn: [clean, compileGwt]) {
 war {
     //dependsOn dist
     from ("war/assets", {into "assets"})
-    baseName = project.appName
+    baseName = project.appName + '-' + project.version
     archiveName = baseName + '.' + extension
 }
 

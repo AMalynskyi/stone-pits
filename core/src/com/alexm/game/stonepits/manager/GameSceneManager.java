@@ -330,6 +330,7 @@ public class GameSceneManager extends  BaseSceneManager {
                     highlightedColor = highlightedPit.getComponent(Tint.class).getTint();
                     highlightedPit.getComponent(Tint.class).setTint(Color.SALMON);
                 }
+                checkRules(); //when user takes the last stones from other users pits, it could be game over
             }
 
             //switch turn
