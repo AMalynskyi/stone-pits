@@ -15,7 +15,7 @@ import static org.assertj.core.api.Assertions.*;
 
 /**
  * Integration testing suite with special runner for Gdx application starting in parallel thread
- * Market as IntegrationTestCategory to separate it from regular build executions
+ * Marked as IntegrationTestCategory to separate it from regular build executions
  *
  * Tests execution sorted by name asc because of game integration testing depends on current scene
  * and sequence of inputs
@@ -41,7 +41,7 @@ public class SPGameIntegrationTesting {
     }
 
     /**
-     * Check game for error that might happened in parallel thread
+     * Check game for error that might happened in parallel thread before every test
      * @throws Exception
      */
     @Before
@@ -81,7 +81,7 @@ public class SPGameIntegrationTesting {
     }
 
     /**
-     * Test game scene loading successfully after simulating click input on a play menu item
+     * Test game scene loading successfully after simulating click input on a 'play' menu item
      * @throws Exception
      */
     @Test

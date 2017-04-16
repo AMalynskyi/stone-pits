@@ -16,11 +16,11 @@ import com.kotcrab.vis.runtime.system.render.RenderBatchingSystem;
 import java.util.LinkedList;
 
 /**
- * User: Oleksandr Malynskyi
- * Date: 03/24/17
+ * Scene manager to process all game actions
  */
 public class GameSceneManager extends  BaseSceneManager {
 
+    /*Keep references for game action entities*/
     private PlayerManager playerManager;
     private Entity star1;
     private Entity star2;
@@ -30,30 +30,37 @@ public class GameSceneManager extends  BaseSceneManager {
     private Entity play2;
     private Entity turnText;
 
-
+    /*Game objects*/
     private LinkedList<Entity> p1Pits = new LinkedList<>();
     private LinkedList<Entity> p2Pits = new LinkedList<>();
     private Entity bp1, bp2;
     private LinkedList<Entity> p1SmallPits;
     private LinkedList<Entity> p2SmallPits;
 
+    /*Text for changing players turn*/
     public final String P1_TURN = "Player 1 turn \n - click to play";
     public final String P2_TURN = "Player 2 turn \n - click to play";
 
+    /*Injections of Gdx mappers and managers*/
     private ComponentMapper<Pit> pitCm;
     private ComponentMapper<VisText> textCm;
     private VisGroupManager groupManager;
-
     private RenderBatchingSystem renderSystem;
 
+    /*List of stones that are sticked to cursor*/
     LinkedList<Entity> flyStones = new LinkedList<>();
 
+    /*Players turn indicators*/
     public static final String PL1 = "PLAYER1", PL2 = "PLAYER2";
 
+    /*Current player turn*/
     private String whoseTurn = PL1;
 
+    /*Last pit where stone was dropped*/
     private Pit lastPit;
+    /*If player have tried to drop stone in a wrong pit, correct pit for drop is highlighted in a color*/
     private Entity highlightedPit;
+    /*Color of highlighted pit*/
     private Color highlightedColor;
 
     /**
@@ -65,6 +72,9 @@ public class GameSceneManager extends  BaseSceneManager {
         super(game);
     }
 
+    /**
+     * Prepare game scene and it's assets for playing
+     */
     @Override
     public void afterSceneInit() {
         super.afterSceneInit();
@@ -107,6 +117,10 @@ public class GameSceneManager extends  BaseSceneManager {
         game.gameMessage();
     }
 
+    /**
+     * Change turn of players
+     * @param player whose turn now, if null - than turn is calculated as another from current player
+     */
     public void switchTurn(String player){
         game.gameMessage();
 
@@ -121,7 +135,11 @@ public class GameSceneManager extends  BaseSceneManager {
 
     }
 
-
+    /**
+     * Game Over actions:
+     * - show congrats
+     * - decide who won
+     */
     public void gameOver(){
 
         soundManager.playOver();
@@ -141,19 +159,30 @@ public class GameSceneManager extends  BaseSceneManager {
         game.gameOver();
     }
 
+    /**
+     * Processing of TouchUP event as input for game play actions
+     * @param screenX coordinate
+     * @param screenY coordinate
+     * @param pointer index of multi touch events, not used here
+     * @param button code
+     * @return whether input was finally processed
+     */
     @Override
     public boolean touchUp(int screenX, int screenY, int pointer, int button) {
 
-        if(game.isGameRunning()) {
+        if(game.isGameRunning()) {//game play
+            //To get correct world position of touch point or mouse cursor it is necessary to
+            // unproject the raw screen position coordinates with camera that operate in world space.
             unprojectVec.set(screenX, screenY, 0);
             cameraManager.getCamera().unproject(unprojectVec);
 
             float x = unprojectVec.x;
             float y = unprojectVec.y;
 
+            //action for dropping stone
             if (button == Input.Buttons.MIDDLE) {
 
-                if (flyStones.size() > 0) {
+                if (flyStones.size() > 0) { //only if there are captured stones sticked to cursor
                     Pit pit = findPit(x, y, whoseTurn);
                     if (pit != null) {
 
@@ -161,9 +190,11 @@ public class GameSceneManager extends  BaseSceneManager {
                         // ONE in each of the following pits, including his own big pit.
                         Entity nextPit = findNextPit(lastPit);
 
+                        //if pit was found, that means propper order and game rules was passed by current action and we
+                        //are able to drop a stone in a pit
                         if(pit.getEntity().equals(nextPit)) {
                             dropStone(pit);
-                        }else if(highlightedColor == null){
+                        }else if(highlightedColor == null){ //for wrong pit click, highlight correct one
                             highlightedPit = nextPit;
                             highlightedColor = highlightedPit.getComponent(Tint.class).getTint();
                             highlightedPit.getComponent(Tint.class).setTint(Color.SALMON);
@@ -171,13 +202,14 @@ public class GameSceneManager extends  BaseSceneManager {
                     }
                 }
 
-            } else if (button == Input.Buttons.LEFT) {
+            } else if (button == Input.Buttons.LEFT) { //capture stones from pit
 
-                if (flyStones.size() == 0) {
+                if (flyStones.size() == 0) {  //possible only if all stones was sowed
 
+                    //find pit of appropriate user with event coordinates
                     Pit pit = findPit(x, y, whoseTurn);
 
-                    //capture is possible only from FULL small pits
+                    //capture is possible only for small pit with stones of current user
                     if (pit != null && !pit.getEntity().equals(bp1) && !pit.getEntity().equals(bp2)
                             && pit.getStones().size() > 0) {
                         captureStones(x, y, pit);
@@ -186,13 +218,18 @@ public class GameSceneManager extends  BaseSceneManager {
                 }
 
             }
-        }else if(game.isGameMessage()){
+        }else if(game.isGameMessage()){//start game play after switch turn message
             turnText.edit().add(new Invisible());
             game.gameRunning();
         }
         return true;
     }
 
+    /**
+     * Find a proper pit for sow action in a game rules order
+     * @param pit very last pit that was dropped with previous stone
+     * @return next Pit in order
+     */
     public Entity findNextPit(Pit pit){
         return whoseTurn.equals(PL1)
                       ? p1Pits.listIterator(
@@ -203,6 +240,11 @@ public class GameSceneManager extends  BaseSceneManager {
                               ? 0 : p2Pits.indexOf(pit.getEntity()) + 1).next();
     }
 
+    /**
+     * Put currently flying Stone in a Pit
+     * For last dropped Stone need to check game rules for gameover, switch turn, etc.
+     * @param pit to drop into
+     */
     public void dropStone(Pit pit){
 
         if(flyStones.size() > 0) {
@@ -223,6 +265,12 @@ public class GameSceneManager extends  BaseSceneManager {
         }
     }
 
+    /**
+     * Checking game play rules:
+     * - game over conditions
+     * - another turn for same user
+     * - capturing alien stones
+     */
     public void checkRules(){
 
         if (flyStones.size() == 0) {
@@ -276,6 +324,8 @@ public class GameSceneManager extends  BaseSceneManager {
                         soundManager.playDrop();
                     }
                     oppositePit.clearPit();
+
+                    //highlighting opposite player pit that was emptied
                     highlightedPit = oppositePit.getEntity();
                     highlightedColor = highlightedPit.getComponent(Tint.class).getTint();
                     highlightedPit.getComponent(Tint.class).setTint(Color.SALMON);
@@ -287,14 +337,22 @@ public class GameSceneManager extends  BaseSceneManager {
         }
     }
 
+    /**
+     * Actions for capturing stones from pit
+     * @param x cursor coordinate
+     * @param y cursor coordinate
+     * @param pit to empty
+     */
     protected void captureStones(float x, float y, Pit pit){
 
+        //reset highlight
         if (highlightedColor != null) {
             highlightedPit.getComponent(Tint.class).setTint(highlightedColor);
             highlightedColor = null;
             highlightedPit = null;
         }
 
+        // pit need to be emptied and stones heap should change coordinates on delta relating to cursor position
         Transform transform;
         LinkedList<StonePosition> content = pit.getStones();
         float deltaX = x - content.getFirst().getX();
@@ -317,6 +375,14 @@ public class GameSceneManager extends  BaseSceneManager {
         lastPit = pit;
     }
 
+    /**
+     * Find pit of current user with given coordinates
+     * If no pit found, it means either cursor coordinates outside of the pit bounds or pit doesn't belong to current user
+     * @param x cursor coordinate
+     * @param y cursor coordinate
+     * @param playerId whose player pit need to find
+     * @return pit if found
+     */
     public Pit findPit(float x, float y, String playerId){
 
         for(Entity pit : playerManager.getEntitiesOfPlayer(playerId)){
@@ -327,6 +393,11 @@ public class GameSceneManager extends  BaseSceneManager {
         return null;
     }
 
+    /**
+     * For every stone in a fly list change it's position in a delta related to give cursor coordinates
+     * @param x cursor coordinate
+     * @param y cursor coordinate
+     */
     public void flyStones(float x, float y){
         if(flyStones != null && flyStones.size() > 0){
             Transform transform;
@@ -341,6 +412,12 @@ public class GameSceneManager extends  BaseSceneManager {
         }
     }
 
+    /**
+     * When stones are flying after cursor need to changes their position every rendering mouse move
+     * @param screenX cursor coordinate
+     * @param screenY cursor coordinate
+     * @return whether input was finally processed
+     */
     @Override
     public boolean mouseMoved(int screenX, int screenY) {
         unprojectVec.set(screenX, screenY, 0);

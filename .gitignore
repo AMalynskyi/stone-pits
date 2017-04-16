@@ -53,13 +53,8 @@ Temporary Items
 
 #builds
 *.class
-.gradle/**
 html/build/dist/**/*.*
-html/build/gwt/**/*.*
-html/build/tmp/**/*.*
-core/build/tmp/**/*.*
 desctop/build/tmp/**/*.*
-build/**/*.*
 *.log
 /core/build/reports/
 /core/build/dependency-cache/
@@ -72,5 +67,10 @@ build/**/*.*
 /desktop/build/classes/
 /desktop/build/dependency-cache/
 /html/build/tmp/
-/build/classes/
 /.gradle/
+/build/
+/desktop/build/docs/
+/html/build/dependency-cache/
+/html/build/docs/
+/html/build/classes/
+/html/build/gwt/

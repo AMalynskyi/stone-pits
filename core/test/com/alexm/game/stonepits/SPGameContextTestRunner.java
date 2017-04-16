@@ -17,8 +17,9 @@ import java.util.function.Predicate;
 /**
  *
  * Base class for testing
- * Contain initialisation and cleanup of stab application
- * Execute all tests in Game App context
+ * Contain initialisation and cleanup of testing application
+ * Gdx starts app in a separate thread with graphics OpenGL context available only in that Thread
+ * To test graphic related behavior need to attach and wait asynchronously for results
  */
 public class SPGameContextTestRunner extends BlockJUnit4ClassRunner {
 
@@ -26,21 +27,14 @@ public class SPGameContextTestRunner extends BlockJUnit4ClassRunner {
 
     private static StonePits game;
 
-    /**
-     * Creates a BlockJUnit4ClassRunner to run {@code testClass}
-     *
-     * @throws org.junit.runners.model.InitializationError if the test class is malformed.
-     */
     public SPGameContextTestRunner(Class<?> testClass) throws InitializationError {
         super(testClass);
-
     }
 
     @Override
     protected Statement classBlock(RunNotifier notifier) {
 
-        //wait for game loading to start testing
-
+        //wait for application loading to start testing
         waitStage("Wait for Game Preparing", game, StonePits::isGamePreparing);
 
         return super.classBlock(notifier);
@@ -49,13 +43,21 @@ public class SPGameContextTestRunner extends BlockJUnit4ClassRunner {
     @Override
     public void run(RunNotifier notifier) {
 
+        //listener to catch events of starting and finishing testing
         notifier.addListener(new GdxSPGameContextListener());
 
         super.run(notifier);
     }
 
+    /**
+     * Listener to catch events of starting and finishing testing
+     */
     public class GdxSPGameContextListener extends RunListener {
 
+        /**
+         * When suite started need to start Gdx Application
+         * Gdx will run app in a separate thread
+         */
         @Override
         public void testSuiteStarted(Description description) throws Exception {
             if(application == null){
@@ -69,10 +71,13 @@ public class SPGameContextTestRunner extends BlockJUnit4ClassRunner {
                     config.forceExit=false;
 
                 application = new LwjglApplication(game, config);
-                Gdx.audio = new MockAudio();
+                Gdx.audio = new MockAudio(); //not to produce noise during testing
             }
         }
 
+        /**
+         * When suite testing is finished send exit to application and wait parallel Gdx thread to complete releasing resources
+         */
         @Override
         public void testSuiteFinished(Description description) throws Exception {
             Gdx.app.exit();

@@ -6,15 +6,21 @@ import com.kotcrab.vis.runtime.component.VisSound;
 import com.kotcrab.vis.runtime.scene.VisAssetManager;
 
 /**
- * User: Oleksandr Malynskyi
- * Date: 03/18/17
+ * Manager of game sounds
  */
 public class SoundManager{
 
+	//flag for sound switch off\on
     private boolean enabled = true;
+
+	/*References to available sounds*/
    	public Music mainTheme, menuTheme, music;
    	public Sound grab, drop, win, over;
 
+	/**
+	 * Create manager with loading sounds from assets
+	 * @param manager assets manager
+	 */
    	public SoundManager (VisAssetManager manager) {
 
    		manager.load("music/main.mp3", Music.class);
@@ -35,6 +41,7 @@ public class SoundManager{
 
    	}
 
+	/*Methods for playing different sounds*/
 
 	public void playGrab() {
 		play(grab);
@@ -84,6 +91,9 @@ public class SoundManager{
 		}
 	}
 
+	/**
+	 * For switch on\off action
+	 */
    	public void resetSound() {
    		enabled = !enabled;
 

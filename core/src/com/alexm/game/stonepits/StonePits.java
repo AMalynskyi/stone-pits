@@ -19,27 +19,36 @@ import com.badlogic.gdx.utils.Logger;
 import com.kotcrab.vis.runtime.RuntimeContext;
 import com.kotcrab.vis.runtime.data.SceneData;
 import com.kotcrab.vis.runtime.scene.*;
-import com.kotcrab.vis.runtime.system.VisGroupManager;
 import com.kotcrab.vis.runtime.util.EntityEngineConfiguration;
 
-
+/**
+ * Game application class for processing all high level game actions
+ */
 public class StonePits extends ApplicationAdapter {
+
+	/*References for game drivers*/
+
 	private SpriteBatch batch;
 	private VisAssetManager manager;
 	private SoundManager soundManager;
-	private VisGroupManager groupManager;
 
+	/*Current scene*/
 	private String scenePath;
 	private Scene scene;
 
+	/*Game States enum*/
 	public enum GameState {ERROR, PREPARE, MENU, RUNNING, MESSAGE, GAMEOVER, DISPOSE}
 
+	/*Current state of game*/
 	private GameState gameState;
 
 	public StonePits() {
 		gamePreparing();
 	}
 
+	/**
+	 * Create application instance with initialization and Menu scene loading
+	 */
 	@Override
 	public void create () {
 
@@ -63,6 +72,9 @@ public class StonePits extends ApplicationAdapter {
 		}
 	}
 
+	/**
+	 * Properly unload previous scene to release all resources
+	 */
 	private void unloadPreviousScene () {
 		if (scenePath != null) {
 			manager.unload(scenePath);
@@ -71,9 +83,13 @@ public class StonePits extends ApplicationAdapter {
 		}
 	}
 
+	/**
+	 * Load menu scene
+	 */
 	public void loadMenuScene () {
 		unloadPreviousScene();
 
+		//parameter to pass required  configurations and systems with defined execution priority
 		SceneLoader.SceneParameter parameter = new SceneLoader.SceneParameter();
 		parameter.config.addSystem(SpriteBoundsSystem.class, SceneConfig.Priority.HIGHEST);
 		parameter.config.addSystem(new SystemProvider() {
@@ -88,9 +104,13 @@ public class StonePits extends ApplicationAdapter {
 		gameMenu();
 	}
 
+	/**
+	 * Load scene of game play
+	 */
 	public void loadGameScene () {
 		unloadPreviousScene();
 
+		//parameter to pass required  configurations and systems with defined execution priority
 		SceneLoader.SceneParameter parameter = new SceneLoader.SceneParameter();
 		parameter.config.addSystem(SpriteBoundsSystem.class, SceneConfig.Priority.HIGHEST);
 		parameter.config.addSystem(PlayerManager.class, SceneConfig.Priority.HIGHEST);
@@ -154,6 +174,24 @@ public class StonePits extends ApplicationAdapter {
 		return manager;
 	}
 
+	public SoundManager getSoundManager() {
+		return soundManager;
+	}
+
+	public String getMenuScenePath() {
+		return "scene/Menu.scene";
+	}
+
+	public String getGameScenePath() {
+		return "scene/MainFrame.scene";
+	}
+
+	public Scene getScene() {
+		return scene;
+	}
+
+	/*Game State methods*/
+
 	public void gamePreparing(){
 		gameState = GameState.PREPARE;
 	}
@@ -210,19 +248,4 @@ public class StonePits extends ApplicationAdapter {
 		return gameState;
 	}
 
-	public SoundManager getSoundManager() {
-		return soundManager;
-	}
-
-	public String getMenuScenePath() {
-		return "scene/Menu.scene";
-	}
-
-	public String getGameScenePath() {
-		return "scene/MainFrame.scene";
-	}
-
-	public Scene getScene() {
-		return scene;
-	}
 }

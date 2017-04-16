@@ -51,12 +51,13 @@ task dist(dependsOn: [clean, compileGwt]) {
 
 //gwt {
 //    compiler {
-//        style = 'DETAILED'
+//        style = 'DETAILED'      //for debugging
 //    }
 //}
 
-war{
-    from 'build/dist'
+war {
+    //dependsOn dist
+    from ("war/assets", {into "assets"})
     baseName = project.appName
     archiveName = baseName + '.' + extension
 }
@@ -67,6 +68,10 @@ draftWar {
 
 task addSource << {
 	sourceSets.main.compileClasspath += files(project(':core').sourceSets.main.allJava.srcDirs)
+}
+
+javadoc{
+    options.addStringOption("sourcepath", "src/")
 }
 
 tasks.superDev.dependsOn(addSource)

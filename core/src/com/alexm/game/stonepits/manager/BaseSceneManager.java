@@ -17,24 +17,28 @@ import com.kotcrab.vis.runtime.system.VisIDManager;
 import com.kotcrab.vis.runtime.util.AfterSceneInit;
 
 /**
- *
- * Base managed for scene processing
- *
+ * Parent abstract manger for scene processing
  */
 public abstract class BaseSceneManager extends Manager implements InputProcessor, AfterSceneInit {
 
-    /**Injections*/
+    /*Injections for component mappers*/
     protected ComponentMapper<Bounds> boundsCm;
    	protected ComponentMapper<Transform> transformCm;
    	protected ComponentMapper<VisSprite> spriteCm;
     protected ComponentMapper<VisGroup> groupCm;
 
+    /*Manager injections*/
     protected VisIDManager idManager;
+   	protected CameraManager cameraManager;
 
-   	protected SoundManager soundManager;
+    /*Application game objects*/
+    protected SoundManager soundManager;
     protected StonePits game;
 
-   	protected CameraManager cameraManager;
+    /**
+     *  Coordinates vector used to convert frame coordinates into game world coordinates
+     *  E.g. 1 game world unit can include 10 frame pixels
+     */
     protected Vector3 unprojectVec = new Vector3();
 
     /**
@@ -55,6 +59,9 @@ public abstract class BaseSceneManager extends Manager implements InputProcessor
    		return boundsCm.get(entity);
    	}
 
+    /**
+     * Assign current manager as input processor for game
+     */
     @Override
     public void afterSceneInit() {
         Gdx.input.setInputProcessor(this);

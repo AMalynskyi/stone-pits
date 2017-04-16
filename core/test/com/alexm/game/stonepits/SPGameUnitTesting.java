@@ -9,14 +9,17 @@ import org.junit.runners.JUnit4;
 import static org.assertj.core.api.Assertions.*;
 
 /**
- * User: Oleksandr Malynskyi
- * Date: 04/11/17
+ * Unit testing suite
+ * Marked as UnitTestCategory to specify that it is quick type of testing and needs to be included in build&assemble actions
  */
 @Category(UnitTestCategory.class)
 @RunWith(JUnit4.class)
 public class SPGameUnitTesting {
 
-
+    /**
+     * Unit test for equal method
+     * @throws Exception
+     */
     @Test
     public void testStonePositionEquality() throws Exception{
         StonePosition a = new StonePosition();

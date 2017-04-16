@@ -8,18 +8,19 @@ import com.kotcrab.vis.runtime.component.Transform;
 
 /**
  * Manager for menu scene processing
- *
  */
 public class MenuSceneManager extends BaseSceneManager{
+
+	/*Menu actions entities*/
 
     private Bounds playSprite;
    	private Bounds quitSprite;
 
+	private Bounds soundOnBounds;
+	private Bounds soundOffBounds;
+
    	private Entity soundOnEntity;
    	private Entity soundOffEntity;
-
-   	private Bounds soundOnBounds;
-   	private Bounds soundOffBounds;
 
     /**
      * Create instance passing game to pull threads
@@ -30,6 +31,9 @@ public class MenuSceneManager extends BaseSceneManager{
         super(game);
     }
 
+	/**
+	 * Retrieve references to game actions entities
+	 */
     @Override
     public void afterSceneInit() {
         super.afterSceneInit();
@@ -48,7 +52,7 @@ public class MenuSceneManager extends BaseSceneManager{
     }
 
     /**
-     * If you have several sprites for same action
+     * If you have a several sprites for the same action
      * Hide one (out of screen) and show another
      * @param entity1 swap with other
      * @param entity2 swap with other
@@ -63,6 +67,14 @@ public class MenuSceneManager extends BaseSceneManager{
    	}
 
 
+	/**
+     * Processing of TouchUP event as input for Menu actions
+	 * @param screenX coordinate
+	 * @param screenY coordinate
+     * @param pointer index of multi touch events, not used here
+     * @param button code
+     * @return whether input was finally processed
+	 */
     @Override
     public boolean touchUp(int screenX, int screenY, int pointer, int button) {
 
@@ -72,15 +84,15 @@ public class MenuSceneManager extends BaseSceneManager{
       	float x = unprojectVec.x;
       	float y = unprojectVec.y;
 
-      	if (playSprite.contains(x, y)) {
+      	if (playSprite.contains(x, y)) {    //start game
       		game.loadGameScene();
       	}
 
-      	if (quitSprite.contains(x, y)) {
+      	if (quitSprite.contains(x, y)) {    //exit, make sense for desktop
       		Gdx.app.exit();
       	}
 
-      	if (soundOnBounds.contains(x, y) || soundOffBounds.contains(x, y)) {
+      	if (soundOnBounds.contains(x, y) || soundOffBounds.contains(x, y)) { //switch off\on sound
       		soundManager.resetSound();
       		swapSpritesPosition(soundOnEntity, soundOffEntity);
       	}

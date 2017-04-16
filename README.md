@@ -32,12 +32,45 @@ https://github.com/AMalynskyi/stone-pits/tree/master/core/test
 
 ## Assembly
 
-### Desctop version
+Using Gradle there are following options to build project.
+
+### Desktop version
+
+To build desktop deployment execute:
+gradlew clean desktop:dist
+
+Find executable jar here:
+./desktop/build/libs/stone-pits-1.1.jar
 
 ### GWT version
 
+To build WAR deployment execute:
+gradlew clean html:war
+
+Find deployment at:
+./html/build/libs/stone-pits.war
+
 ### Tests
 
+Because of Integration tests use lambda expressions execution requires Java 8.
 
-## Solution design
+Run Unit tests by:
+gradlew clean core:test
+
+Run Integration test by:
+gradlew clean core:testIntegration
+
+Run All tests by:
+gradlew clean core:testAll
+
+Find reports separately for Unit and Integration tests in dir:
+./core/build/reports/tests
+
+### Java DOCs
+
+Run JavaDocs by:
+gradlew core:javadoc
+
+Find docs in:
+./core/build/docs/javadoc/index.html
 
