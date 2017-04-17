@@ -1,6 +1,8 @@
 # StonePits
 Game with Stones &amp; Pits
 
+You can play it here https://stone-pits.herokuapp.com/
+
 ## Used libraries and engines 
 
 1) LibGDX - core game engine
