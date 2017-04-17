@@ -1,6 +1,5 @@
 apply plugin: "java"
 
-sourceCompatibility = 1.8
 sourceSets.main.java.srcDirs = [ "src/" ]
 
 project.ext.mainClassName = "com.alexm.game.stonepits.desktop.DesktopLauncher"

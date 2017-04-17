@@ -58,7 +58,7 @@ task dist(dependsOn: [clean, compileGwt]) {
 war {
     //dependsOn dist
     from ("war/assets", {into "assets"})
-    baseName = project.appName + '-' + project.version
+    baseName = project.appName
     archiveName = baseName + '.' + extension
 }
 
@@ -79,5 +79,4 @@ tasks.gwtDev.dependsOn(addSource)
 tasks.compileGwt.dependsOn(addSource)
 tasks.draftCompileGwt.dependsOn(addSource)
 
-sourceCompatibility = 1.8
 sourceSets.main.java.srcDirs = [ "src/" ]
