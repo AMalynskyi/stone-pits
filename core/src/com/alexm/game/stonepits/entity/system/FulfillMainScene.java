@@ -2,7 +2,7 @@ package com.alexm.game.stonepits.entity.system;
 
 import com.alexm.game.stonepits.StonePits;
 import com.alexm.game.stonepits.entity.component.*;
-import com.alexm.game.stonepits.manager.GameSceneManager;
+import com.alexm.game.stonepits.manager.GameSceneManagerStrategy;
 import com.alexm.game.stonepits.manager.SoundManager;
 import com.artemis.*;
 import com.artemis.managers.PlayerManager;
@@ -78,7 +78,7 @@ public class FulfillMainScene extends BaseEntitySystem {
         //collect all small pits of player1
         Array<Entity> p1Pits =  groupManager.get("Player1Pits");
         for(Entity pit : p1Pits){
-            playerManager.setPlayer(pit, GameSceneManager.PL1);
+            playerManager.setPlayer(pit, GameSceneManagerStrategy.PL1);
 
             if(!pit.equals(bp1)) {
                 sp1s.add(pitCm.get(pit));
@@ -89,7 +89,7 @@ public class FulfillMainScene extends BaseEntitySystem {
         Array<Entity> p2Pits =  groupManager.get("Player2Pits");
 
         for(Entity pit : p2Pits){
-            playerManager.setPlayer(pit, GameSceneManager.PL2);
+            playerManager.setPlayer(pit, GameSceneManagerStrategy.PL2);
 
             if(!pit.equals(bp2)) {
                 sp2s.add(pitCm.get(pit));

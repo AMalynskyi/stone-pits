@@ -61,7 +61,7 @@ public class SPGameContextTestRunner extends BlockJUnit4ClassRunner {
         @Override
         public void testSuiteStarted(Description description) throws Exception {
             if(application == null){
-                game = new StonePits();
+                game = StonePits.getInstance();
 
                 LwjglApplicationConfiguration config = new LwjglApplicationConfiguration();
               		config.title = "test";

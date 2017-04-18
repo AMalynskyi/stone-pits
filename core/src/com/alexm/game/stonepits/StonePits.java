@@ -1,14 +1,9 @@
 package com.alexm.game.stonepits;
 
 
-import com.alexm.game.stonepits.entity.system.FulfillMainScene;
-import com.alexm.game.stonepits.entity.system.PitsSystem;
-import com.alexm.game.stonepits.entity.system.SpriteBoundsSystem;
-import com.alexm.game.stonepits.manager.GameSceneManager;
-import com.alexm.game.stonepits.manager.MenuSceneManager;
+import com.alexm.game.stonepits.manager.GameStateHandler;
+import com.alexm.game.stonepits.manager.SceneManagerFactory;
 import com.alexm.game.stonepits.manager.SoundManager;
-import com.artemis.BaseSystem;
-import com.artemis.managers.PlayerManager;
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
@@ -16,10 +11,9 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.profiling.GLErrorListener;
 import com.badlogic.gdx.graphics.profiling.GLProfiler;
 import com.badlogic.gdx.utils.Logger;
-import com.kotcrab.vis.runtime.RuntimeContext;
-import com.kotcrab.vis.runtime.data.SceneData;
 import com.kotcrab.vis.runtime.scene.*;
-import com.kotcrab.vis.runtime.util.EntityEngineConfiguration;
+
+import java.util.HashMap;
 
 /**
  * Game application class for processing all high level game actions
@@ -32,18 +26,34 @@ public class StonePits extends ApplicationAdapter {
 	private VisAssetManager manager;
 	private SoundManager soundManager;
 
-	/*Current scene*/
-	private String scenePath;
+	/**Current scene*/
 	private Scene scene;
 
-	/*Game States enum*/
-	public enum GameState {ERROR, PREPARE, MENU, RUNNING, MESSAGE, GAMEOVER, DISPOSE}
+	/**Game States enum*/
+	public enum GameState {ERROR, PREPARE, MENU, RUNNING, START, GAMEOVER, DISPOSE}
 
-	/*Current state of game*/
+	/**Current state of game*/
 	private GameState gameState;
 
-	public StonePits() {
+	/**Map for game state handlers*/
+	private HashMap<GameState, GameStateHandler> stateHandlers = new HashMap<>();
+
+	private SceneManagerFactory sceneFactory;
+
+	private static StonePits instance;
+
+	private StonePits() {
 		gamePreparing();
+	}
+
+	/**
+	 * Implementation of <b>Singleton Design Pattern</b>
+	 * @return game instance
+	 */
+	public static StonePits getInstance(){
+		if(instance == null)
+			instance = new StonePits();
+		return instance;
 	}
 
 	/**
@@ -64,73 +74,15 @@ public class StonePits extends ApplicationAdapter {
 
 			soundManager = new SoundManager(manager);
 
-			loadMenuScene();
+			sceneFactory = new SceneManagerFactory(this);
+
+			sceneFactory.loadScene(GameState.MENU);
+
 		} catch (RuntimeException e) {
 			Gdx.app.error("INIT", "GAME INIT ERROR", e);
 			gameError();
 			throw e;
 		}
-	}
-
-	/**
-	 * Properly unload previous scene to release all resources
-	 */
-	private void unloadPreviousScene () {
-		if (scenePath != null) {
-			manager.unload(scenePath);
-			scenePath = null;
-			scene = null;
-		}
-	}
-
-	/**
-	 * Load menu scene
-	 */
-	public void loadMenuScene () {
-		unloadPreviousScene();
-
-		//parameter to pass required  configurations and systems with defined execution priority
-		SceneLoader.SceneParameter parameter = new SceneLoader.SceneParameter();
-		parameter.config.addSystem(SpriteBoundsSystem.class, SceneConfig.Priority.HIGHEST);
-		parameter.config.addSystem(new SystemProvider() {
-			public BaseSystem create (EntityEngineConfiguration config, RuntimeContext context, SceneData data) {
-				return new MenuSceneManager(StonePits.this);
-			}
-		});
-		parameter.config.enable(SceneFeature.GROUP_ID_MANAGER);
-
-		scenePath = getMenuScenePath();
-		scene = manager.loadSceneNow(scenePath, parameter);
-		gameMenu();
-	}
-
-	/**
-	 * Load scene of game play
-	 */
-	public void loadGameScene () {
-		unloadPreviousScene();
-
-		//parameter to pass required  configurations and systems with defined execution priority
-		SceneLoader.SceneParameter parameter = new SceneLoader.SceneParameter();
-		parameter.config.addSystem(SpriteBoundsSystem.class, SceneConfig.Priority.HIGHEST);
-		parameter.config.addSystem(PlayerManager.class, SceneConfig.Priority.HIGHEST);
-		parameter.config.addSystem(PitsSystem.class, SceneConfig.Priority.HIGH);
-		parameter.config.addSystem(new SystemProvider() {
-			public BaseSystem create (EntityEngineConfiguration config, RuntimeContext context, SceneData data) {
-
-				return new FulfillMainScene(StonePits.this);
-			}
-		});
-		parameter.config.addSystem(new SystemProvider() {
-			public BaseSystem create (EntityEngineConfiguration config, RuntimeContext context, SceneData data) {
-				return new GameSceneManager(StonePits.this);
-			}
-		}, SceneConfig.Priority.LOW);
-
-		parameter.config.enable(SceneFeature.GROUP_ID_MANAGER);
-
-		scenePath = getGameScenePath();
-		scene = manager.loadSceneNow(scenePath, parameter);
 	}
 
 	@Override
@@ -170,6 +122,14 @@ public class StonePits extends ApplicationAdapter {
 		}
 	}
 
+	public HashMap<GameState, GameStateHandler> getStateHandlers() {
+		return stateHandlers;
+	}
+
+	public SceneManagerFactory getSceneFactory() {
+		return sceneFactory;
+	}
+
 	public VisAssetManager getAssetManager() {
 		return manager;
 	}
@@ -188,6 +148,10 @@ public class StonePits extends ApplicationAdapter {
 
 	public Scene getScene() {
 		return scene;
+	}
+
+	public void setScene(Scene scene) {
+		this.scene = scene;
 	}
 
 	/*Game State methods*/
@@ -212,8 +176,8 @@ public class StonePits extends ApplicationAdapter {
 		gameState = GameState.GAMEOVER;
 	}
 
-	public void gameMessage(){
-		gameState = GameState.MESSAGE;
+	public void gameStart(){
+		gameState = GameState.START;
 	}
 
 	public void gameError(){
@@ -224,8 +188,8 @@ public class StonePits extends ApplicationAdapter {
 				return gameState == GameState.MENU;
 			}
 
-	public boolean isGameMessage(){
-				return gameState == GameState.MESSAGE;
+	public boolean isGameStarted(){
+				return gameState == GameState.START;
 			}
 
 	public boolean isGameDisposed(){
@@ -248,4 +212,7 @@ public class StonePits extends ApplicationAdapter {
 		return gameState;
 	}
 
+	public void setGameState(GameState gameState) {
+		this.gameState = gameState;
+	}
 }

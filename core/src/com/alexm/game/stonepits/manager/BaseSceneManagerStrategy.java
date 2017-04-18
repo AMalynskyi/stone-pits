@@ -12,14 +12,14 @@ import com.kotcrab.vis.runtime.component.Transform;
 import com.kotcrab.vis.runtime.component.VisGroup;
 import com.kotcrab.vis.runtime.component.VisSprite;
 import com.kotcrab.vis.runtime.system.CameraManager;
-import com.kotcrab.vis.runtime.system.VisGroupManager;
 import com.kotcrab.vis.runtime.system.VisIDManager;
 import com.kotcrab.vis.runtime.util.AfterSceneInit;
 
 /**
- * Parent abstract manger for scene processing
+ * Parent abstract manager strategy for scene processing.
+ * Implements <b>Strategy Behavioral Design Pattern</b>
  */
-public abstract class BaseSceneManager extends Manager implements InputProcessor, AfterSceneInit {
+public abstract class BaseSceneManagerStrategy extends Manager implements InputProcessor, AfterSceneInit {
 
     /*Injections for component mappers*/
     protected ComponentMapper<Bounds> boundsCm;
@@ -45,7 +45,7 @@ public abstract class BaseSceneManager extends Manager implements InputProcessor
      * Create instance passing game to pull threads
      * @param game application
      */
-    public BaseSceneManager (StonePits game) {
+    public BaseSceneManagerStrategy(StonePits game) {
    		this.game = game;
    		this.soundManager = game.getSoundManager();
    	}
@@ -66,6 +66,35 @@ public abstract class BaseSceneManager extends Manager implements InputProcessor
     public void afterSceneInit() {
         Gdx.input.setInputProcessor(this);
     }
+
+    /**
+     * Processing of TouchUP event as input for Scene actions
+   	 * @param screenX coordinate
+   	 * @param screenY coordinate
+     * @param pointer index of multi touch events, not used here
+     * @param button code
+     * @return whether input was finally processed
+   	 */
+     @Override
+     public boolean touchUp(int screenX, int screenY, int pointer, int button) {
+
+         GameStateHandler handler = game.getStateHandlers().get(game.getGameState());
+
+         return handler.touchUp(screenX, screenY, pointer, button);
+     }
+
+    /**
+     * React on mouse movement input during rendering
+     * @param screenX mouse coordinate
+     * @param screenY mouse coordinate
+     * @return whether input was finally processed
+     */
+     @Override
+     public boolean mouseMoved(int screenX, int screenY) {
+         GameStateHandler handler = game.getStateHandlers().get(game.getGameState());
+
+         return handler.mouseMoved(screenX, screenY);
+     }
 
     @Override
     public boolean keyDown(int keycode) {

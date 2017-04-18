@@ -93,7 +93,7 @@ public class SPGameIntegrationTesting {
 
         SPGameContextTestRunner.waitStage("Wait for Game Play Loading", game, StonePits::isGameMenu);
 
-        assertThat(game.isGameMessage()).isTrue();
+        assertThat(game.isGameStarted()).isTrue();
     }
 
 }

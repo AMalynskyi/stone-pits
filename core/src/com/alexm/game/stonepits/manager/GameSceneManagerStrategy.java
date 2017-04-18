@@ -16,9 +16,10 @@ import com.kotcrab.vis.runtime.system.render.RenderBatchingSystem;
 import java.util.LinkedList;
 
 /**
- * Scene manager to process all game actions
+ * Game Scene Managing Strategy to process all game actions
+ * Implements <b>Strategy Behavioral Design Pattern</b>
  */
-public class GameSceneManager extends  BaseSceneManager {
+public class GameSceneManagerStrategy extends BaseSceneManagerStrategy {
 
     /*Keep references for game action entities*/
     private PlayerManager playerManager;
@@ -68,8 +69,11 @@ public class GameSceneManager extends  BaseSceneManager {
      *
      * @param game application
      */
-    public GameSceneManager(StonePits game) {
+    public GameSceneManagerStrategy(StonePits game) {
         super(game);
+
+        game.getStateHandlers().put(StonePits.GameState.RUNNING, new PlayStateHandler());
+        game.getStateHandlers().put(StonePits.GameState.START, new StartedStateHandler());
     }
 
     /**
@@ -114,7 +118,6 @@ public class GameSceneManager extends  BaseSceneManager {
         idManager.get("p2GO").edit().add(new Invisible());
         idManager.get("p1GO").edit().add(new Invisible());
 
-        game.gameMessage();
     }
 
     /**
@@ -122,7 +125,7 @@ public class GameSceneManager extends  BaseSceneManager {
      * @param player whose turn now, if null - than turn is calculated as another from current player
      */
     public void switchTurn(String player){
-        game.gameMessage();
+        game.gameStart();
 
         if(player == null)
             whoseTurn = whoseTurn == null ? PL1 : whoseTurn.equals(PL1) ? PL2 : PL1;
@@ -157,72 +160,6 @@ public class GameSceneManager extends  BaseSceneManager {
         }
 
         game.gameOver();
-    }
-
-    /**
-     * Processing of TouchUP event as input for game play actions
-     * @param screenX coordinate
-     * @param screenY coordinate
-     * @param pointer index of multi touch events, not used here
-     * @param button code
-     * @return whether input was finally processed
-     */
-    @Override
-    public boolean touchUp(int screenX, int screenY, int pointer, int button) {
-
-        if(game.isGameRunning()) {//game play
-            //To get correct world position of touch point or mouse cursor it is necessary to
-            // unproject the raw screen position coordinates with camera that operate in world space.
-            unprojectVec.set(screenX, screenY, 0);
-            cameraManager.getCamera().unproject(unprojectVec);
-
-            float x = unprojectVec.x;
-            float y = unprojectVec.y;
-
-            //action for dropping stone
-            if (button == Input.Buttons.MIDDLE) {
-
-                if (flyStones.size() > 0) { //only if there are captured stones sticked to cursor
-                    Pit pit = findPit(x, y, whoseTurn);
-                    if (pit != null) {
-
-                        // sows the stones on to the right,
-                        // ONE in each of the following pits, including his own big pit.
-                        Entity nextPit = findNextPit(lastPit);
-
-                        //if pit was found, that means propper order and game rules was passed by current action and we
-                        //are able to drop a stone in a pit
-                        if(pit.getEntity().equals(nextPit)) {
-                            dropStone(pit);
-                        }else if(highlightedColor == null){ //for wrong pit click, highlight correct one
-                            highlightedPit = nextPit;
-                            highlightedColor = highlightedPit.getComponent(Tint.class).getTint();
-                            highlightedPit.getComponent(Tint.class).setTint(Color.SALMON);
-                        }
-                    }
-                }
-
-            } else if (button == Input.Buttons.LEFT) { //capture stones from pit
-
-                if (flyStones.size() == 0) {  //possible only if all stones was sowed
-
-                    //find pit of appropriate user with event coordinates
-                    Pit pit = findPit(x, y, whoseTurn);
-
-                    //capture is possible only for small pit with stones of current user
-                    if (pit != null && !pit.getEntity().equals(bp1) && !pit.getEntity().equals(bp2)
-                            && pit.getStones().size() > 0) {
-                        captureStones(x, y, pit);
-                    }
-
-                }
-
-            }
-        }else if(game.isGameMessage()){//start game play after switch turn message
-            turnText.edit().add(new Invisible());
-            game.gameRunning();
-        }
-        return true;
     }
 
     /**
@@ -275,66 +212,10 @@ public class GameSceneManager extends  BaseSceneManager {
 
         if (flyStones.size() == 0) {
 
-            //Check for game over
-            boolean isEmpty = true;
+            GamePlayRuler playRuler = new GamePlayRuler();
 
-            //The game is over as soon as one of the sides run out of stones.
-            for (Entity smallPit : whoseTurn.equals(PL1) ? p1SmallPits : p2SmallPits) {
-                if (smallPit.getComponent(Pit.class).getStones().size() > 0) {
-                    isEmpty = false;
-                    break;
-                }
-            }
-
-            if (isEmpty) {
-                Pit bp = whoseTurn.equals(PL1) ? bp2.getComponent(Pit.class) : bp1.getComponent(Pit.class);
-                // The player who still has stones in his pits keeps them and puts them in his/hers big pit.
-                for (Entity smallPit : whoseTurn.equals(PL1) ? p2SmallPits : p1SmallPits) {
-                    for (StonePosition stone : smallPit.getComponent(Pit.class).getStones()) {
-                        bp.putStoneInAPit(stone.getStone());
-                        soundManager.playDrop();
-                    }
-                }
-                gameOver();
-                return;
-            }
-
-
-            //If the player's last stone lands in his own big pit, he gets another turn.
-            if (lastPit.isBigPit()) {
-                switchTurn(whoseTurn);
-                return;
-            }
-
-            //During the game the pits are emptied on both sides. Always when the last stone
-            //lands in an own empty pit, the player captures his own stone and all stones in the
-            //opposite pit (the other players' pit) and puts them in his own pit.
-            if(lastPit.getStones().size() == 1){
-                float x = lastPit.getEntity().getComponent(Bounds.class).getX();
-                Pit oppositePit = null;
-                for(Entity opponentPit : whoseTurn.equals(PL1) ? p2SmallPits : p1SmallPits){
-                    if(opponentPit.getComponent(Bounds.class).getX() == x){
-                        oppositePit = opponentPit.getComponent(Pit.class);
-                        break;
-                    }
-                }
-                if(oppositePit != null && oppositePit.getStones().size() > 0){
-                    for(StonePosition sp : oppositePit.getStones()){
-                        lastPit.putStoneInAPit(sp.getStone());
-                        soundManager.playDrop();
-                    }
-                    oppositePit.clearPit();
-
-                    //highlighting opposite player pit that was emptied
-                    highlightedPit = oppositePit.getEntity();
-                    highlightedColor = highlightedPit.getComponent(Tint.class).getTint();
-                    highlightedPit.getComponent(Tint.class).setTint(Color.SALMON);
-                }
-                checkRules(); //when user takes the last stones from other users pits, it could be game over
-            }
-
-            //switch turn
-            switchTurn(null);
+            if(!playRuler.checkRules())
+                switchTurn(null);
         }
     }
 
@@ -414,21 +295,197 @@ public class GameSceneManager extends  BaseSceneManager {
     }
 
     /**
-     * When stones are flying after cursor need to changes their position every rendering mouse move
-     * @param screenX cursor coordinate
-     * @param screenY cursor coordinate
-     * @return whether input was finally processed
+     * Bunch of Game Rules to check
      */
-    @Override
-    public boolean mouseMoved(int screenX, int screenY) {
-        unprojectVec.set(screenX, screenY, 0);
-        cameraManager.getCamera().unproject(unprojectVec);
+    public class GamePlayRuler {
 
-      	float x = unprojectVec.x;
-      	float y = unprojectVec.y;
+        private ChainLinkedList<RulesChainNode> rules = new ChainLinkedList<>();
 
-        flyStones(x, y);
+        public GamePlayRuler() {
+            rules.add(new GameOverRule());
+            rules.add(new OneMoreTurnRule());
+            rules.add(new GrabOppositeStonesRule());
+        }
 
-        return false;
+        /**
+         * Check series of rules
+         * @return true if some rule was satisfied
+         */
+        public boolean checkRules(){
+            return rules.iterator().next().process(rules);
+        }
+    }
+
+    public class GrabOppositeStonesRule extends RulesChainNode{
+
+        @Override
+        public boolean checkRule() {
+            //During the game the pits are emptied on both sides. Always when the last stone
+            //lands in an own empty pit, the player captures his own stone and all stones in the
+            //opposite pit (the other players' pit) and puts them in his own pit.
+            if(lastPit.getStones().size() == 1){
+                float x = lastPit.getEntity().getComponent(Bounds.class).getX();
+                Pit oppositePit = null;
+                for(Entity opponentPit : whoseTurn.equals(PL1) ? p2SmallPits : p1SmallPits){
+                    if(opponentPit.getComponent(Bounds.class).getX() == x){
+                        oppositePit = opponentPit.getComponent(Pit.class);
+                        break;
+                    }
+                }
+                if(oppositePit != null && oppositePit.getStones().size() > 0){
+                    for(StonePosition sp : oppositePit.getStones()){
+                        lastPit.putStoneInAPit(sp.getStone());
+                        soundManager.playDrop();
+                    }
+                    oppositePit.clearPit();
+
+                    //highlighting opposite player pit that was emptied
+                    highlightedPit = oppositePit.getEntity();
+                    highlightedColor = highlightedPit.getComponent(Tint.class).getTint();
+                    highlightedPit.getComponent(Tint.class).setTint(Color.SALMON);
+                }
+                //when user takes the last stones from other users pits, it could be game over
+                return new GameOverRule().checkRule();
+            }
+            return false;
+        }
+    }
+
+    public class OneMoreTurnRule extends RulesChainNode{
+
+        @Override
+        public boolean checkRule() {
+            //If the player's last stone lands in his own big pit, he gets another turn.
+            if (lastPit.isBigPit()) {
+                switchTurn(whoseTurn);
+                return true;
+            }
+            return false;
+        }
+    }
+
+    public class GameOverRule extends RulesChainNode{
+
+        @Override
+        public boolean checkRule() {
+
+            boolean isEmpty = true;
+
+            //The game is over as soon as one of the sides run out of stones.
+            for (Entity smallPit : whoseTurn.equals(PL1) ? p1SmallPits : p2SmallPits) {
+                if (smallPit.getComponent(Pit.class).getStones().size() > 0) {
+                    isEmpty = false;
+                    break;
+                }
+            }
+
+            if (isEmpty) {
+                Pit bp = whoseTurn.equals(PL1) ? bp2.getComponent(Pit.class) : bp1.getComponent(Pit.class);
+                // The player who still has stones in his pits keeps them and puts them in his/hers big pit.
+                for (Entity smallPit : whoseTurn.equals(PL1) ? p2SmallPits : p1SmallPits) {
+                    for (StonePosition stone : smallPit.getComponent(Pit.class).getStones()) {
+                        bp.putStoneInAPit(stone.getStone());
+                        soundManager.playDrop();
+                    }
+                }
+                gameOver();
+                return true;
+            }
+            return false;
+        }
+    }
+
+    /**
+     * Handling of actions during game play rendering:
+     * - capture & drop stones by clicking middle & left mouse
+     * - draw flying stones after cursor
+     *
+     * Implements <b>State Behavioral Design Pattern</b>
+     */
+    public class PlayStateHandler extends GameStateHandler{
+
+        @Override
+        public boolean touchUp(int screenX, int screenY, int pointer, int button) {
+            //game play
+            //To get correct world position of touch point or mouse cursor it is necessary to
+            // unproject the raw screen position coordinates with camera that operate in world space.
+            unprojectVec.set(screenX, screenY, 0);
+            cameraManager.getCamera().unproject(unprojectVec);
+
+            float x = unprojectVec.x;
+            float y = unprojectVec.y;
+
+            //action for dropping stone
+            if (button == Input.Buttons.MIDDLE) {
+
+                if (flyStones.size() > 0) { //only if there are captured stones sticked to cursor
+                    Pit pit = findPit(x, y, whoseTurn);
+                    if (pit != null) {
+
+                        // sows the stones on to the right,
+                        // ONE in each of the following pits, including his own big pit.
+                        Entity nextPit = findNextPit(lastPit);
+
+                        //if pit was found, that means propper order and game rules was passed by current action and we
+                        //are able to drop a stone in a pit
+                        if(pit.getEntity().equals(nextPit)) {
+                            dropStone(pit);
+                        }else if(highlightedColor == null){ //for wrong pit click, highlight correct one
+                            highlightedPit = nextPit;
+                            highlightedColor = highlightedPit.getComponent(Tint.class).getTint();
+                            highlightedPit.getComponent(Tint.class).setTint(Color.SALMON);
+                        }
+                    }
+                }
+
+            } else if (button == Input.Buttons.LEFT) { //capture stones from pit
+
+                if (flyStones.size() == 0) {  //possible only if all stones was sowed
+
+                    //find pit of appropriate user with event coordinates
+                    Pit pit = findPit(x, y, whoseTurn);
+
+                    //capture is possible only for small pit with stones of current user
+                    if (pit != null && !pit.getEntity().equals(bp1) && !pit.getEntity().equals(bp2)
+                            && pit.getStones().size() > 0) {
+                        captureStones(x, y, pit);
+                    }
+
+                }
+            }
+
+            return true;
+        }
+
+        /**
+         * When stones are flying after cursor need to changes their position every rendering mouse move
+         * @param screenX cursor coordinate
+         * @param screenY cursor coordinate
+         * @return whether input was finally processed
+         */
+        @Override
+        public boolean mouseMoved(int screenX, int screenY) {
+            unprojectVec.set(screenX, screenY, 0);
+            cameraManager.getCamera().unproject(unprojectVec);
+
+          	float x = unprojectVec.x;
+          	float y = unprojectVec.y;
+
+            flyStones(x, y);
+
+            return true;
+        }
+    }
+
+    public class StartedStateHandler extends GameStateHandler{
+
+        @Override
+        public boolean touchUp(int screenX, int screenY, int pointer, int button) {
+            //start game play after switch turn message
+            turnText.edit().add(new Invisible());
+            game.gameRunning();
+
+            return true;
+        }
     }
 }

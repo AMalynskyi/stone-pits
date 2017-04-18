@@ -106,9 +106,9 @@
 	<extend-configuration-property name="gdx.reflect.include" value="com.alexm.game.stonepits.entity.component.Pit" />
 	<extend-configuration-property name="gdx.reflect.include" value="com.alexm.game.stonepits.entity.component.Stone" />
 	<extend-configuration-property name="gdx.reflect.include" value="com.alexm.game.stonepits.entity.component.StonePosition" />
-	<extend-configuration-property name="gdx.reflect.include" value="com.alexm.game.stonepits.manager.BaseSceneManager" />
-	<extend-configuration-property name="gdx.reflect.include" value="com.alexm.game.stonepits.manager.GameSceneManager" />
-	<extend-configuration-property name="gdx.reflect.include" value="com.alexm.game.stonepits.manager.MenuSceneManager" />
+	<extend-configuration-property name="gdx.reflect.include" value="com.alexm.game.stonepits.manager.BaseSceneManagerStrategy" />
+	<extend-configuration-property name="gdx.reflect.include" value="com.alexm.game.stonepits.manager.GameSceneManagerStrategy" />
+	<extend-configuration-property name="gdx.reflect.include" value="com.alexm.game.stonepits.manager.MenuSceneManagerStrategy" />
 	<extend-configuration-property name="gdx.reflect.include" value="com.alexm.game.stonepits.manager.SoundManager" />
 
 	<extend-configuration-property name="artemis.reflect.include" value="com.alexm.game.stonepits" />
@@ -120,9 +120,9 @@
 	<extend-configuration-property name="artemis.reflect.include" value="com.alexm.game.stonepits.entity.component.Pit" />
 	<extend-configuration-property name="artemis.reflect.include" value="com.alexm.game.stonepits.entity.component.Stone" />
 	<extend-configuration-property name="artemis.reflect.include" value="com.alexm.game.stonepits.entity.component.StonePosition" />
-	<extend-configuration-property name="artemis.reflect.include" value="com.alexm.game.stonepits.manager.BaseSceneManager" />
-	<extend-configuration-property name="artemis.reflect.include" value="com.alexm.game.stonepits.manager.GameSceneManager" />
-	<extend-configuration-property name="artemis.reflect.include" value="com.alexm.game.stonepits.manager.MenuSceneManager" />
+	<extend-configuration-property name="artemis.reflect.include" value="com.alexm.game.stonepits.manager.BaseSceneManagerStrategy" />
+	<extend-configuration-property name="artemis.reflect.include" value="com.alexm.game.stonepits.manager.GameSceneManagerStrategy" />
+	<extend-configuration-property name="artemis.reflect.include" value="com.alexm.game.stonepits.manager.MenuSceneManagerStrategy" />
 	<extend-configuration-property name="artemis.reflect.include" value="com.alexm.game.stonepits.manager.SoundManager" />
 
 

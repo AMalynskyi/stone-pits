@@ -16,7 +16,7 @@ public class DesktopLauncher {
 		config.forceExit=false;
 
 		try {
-			new LwjglApplication(new StonePits(), config);
+			new LwjglApplication(StonePits.getInstance(), config);
 		} catch (Exception e) {
 
 			Gdx.app.error("LAUNCH", e.getMessage(), e);
