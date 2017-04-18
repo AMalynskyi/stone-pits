@@ -1,4 +1,4 @@
-package com.alexm.game.stonepits.manager;
+package com.alexm.game.stonepits.manager.design;
 
 /**
  * Abstract class for game rules check node in a chain
@@ -9,7 +9,8 @@ package com.alexm.game.stonepits.manager;
 public abstract class RulesChainNode {
 
     /**
-     * Check game play rule & do appropriate actions inside
+     * Check game play rule and do appropriate actions inside
+     * @return true if rule was succeeded
      */
     public abstract boolean checkRule();
 

@@ -2,6 +2,7 @@ package com.alexm.game.stonepits.manager;
 
 import com.alexm.game.stonepits.StonePits;
 import com.alexm.game.stonepits.entity.component.Bounds;
+import com.alexm.game.stonepits.manager.design.GameStateHandler;
 import com.artemis.ComponentMapper;
 import com.artemis.Entity;
 import com.artemis.Manager;
@@ -124,5 +125,21 @@ public abstract class BaseSceneManagerStrategy extends Manager implements InputP
     @Override
     public boolean scrolled(int amount) {
         return false;
+    }
+
+    public ComponentMapper<Transform> getTransformCm() {
+        return transformCm;
+    }
+
+    public StonePits getGame() {
+        return game;
+    }
+
+    public SoundManager getSoundManager() {
+        return soundManager;
+    }
+
+    public CameraManager getCameraManager() {
+        return cameraManager;
     }
 }

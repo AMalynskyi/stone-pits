@@ -4,7 +4,7 @@
 	<source path="com/alexm/game/stonepits">
 		<include name="*.java"/>
 		<include name="entity/**/*.java"/>
-		<include name="manager/*.java"/>
+		<include name="manager/**/*.java"/>
 
 	</source>
 </module>

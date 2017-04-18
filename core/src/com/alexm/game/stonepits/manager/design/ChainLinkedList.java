@@ -1,7 +1,6 @@
-package com.alexm.game.stonepits.manager;
+package com.alexm.game.stonepits.manager.design;
 
 import java.util.LinkedList;
-import java.util.ListIterator;
 
 /**
  * List with useful method
@@ -17,6 +16,11 @@ public class ChainLinkedList<T> extends LinkedList<T>{
         return hasNextTo(node) ? listIterator(indexOf(node)+1).next() : null;
     }
 
+    /**
+     * If there another node exist after current
+     * @param node current
+     * @return true if exist
+     */
     public boolean hasNextTo(T node){
         return indexOf(node) < size()-1;
     }

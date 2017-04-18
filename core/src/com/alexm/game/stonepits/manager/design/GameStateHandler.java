@@ -1,4 +1,4 @@
-package com.alexm.game.stonepits.manager;
+package com.alexm.game.stonepits.manager.design;
 
 /**
  * Base default Game State Handler who does nothing.
@@ -23,6 +23,12 @@ public class GameStateHandler {
         return false;
     }
 
+    /**
+     * Processing of Mouse Move event as input for Scene rendering
+     * @param screenX coordinate
+     * @param screenY coordinate
+     * @return whether input was finally processed
+     */
     public boolean mouseMoved(int screenX, int screenY){
         //do nothing
         return false;

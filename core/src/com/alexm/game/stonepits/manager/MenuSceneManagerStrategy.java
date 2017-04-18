@@ -2,9 +2,8 @@ package com.alexm.game.stonepits.manager;
 
 import com.alexm.game.stonepits.StonePits;
 import com.alexm.game.stonepits.entity.component.Bounds;
+import com.alexm.game.stonepits.manager.design.MenuStateHandler;
 import com.artemis.Entity;
-import com.badlogic.gdx.Gdx;
-import com.kotcrab.vis.runtime.component.Transform;
 
 /**
  * Manager for menu scene processing
@@ -29,7 +28,7 @@ public class MenuSceneManagerStrategy extends BaseSceneManagerStrategy {
      */
     public MenuSceneManagerStrategy(StonePits game) {
         super(game);
-	    game.getStateHandlers().put(StonePits.GameState.MENU, new MenuStateHandler());
+	    game.getStateHandlers().put(StonePits.GameState.MENU, new MenuStateHandler(this));
     }
 
 	/**
@@ -52,51 +51,27 @@ public class MenuSceneManagerStrategy extends BaseSceneManagerStrategy {
 
     }
 
-	/**
-	 * Handling of Menu state actions:
-	 * - clicking on quit or play
-	 * - switching sounds on&off
-	 *
-	 * Implements <b>State Behavioral Design Pattern</b>
-	 */
-	public class MenuStateHandler extends GameStateHandler {
+	public Bounds getPlaySprite() {
+		return playSprite;
+	}
 
-		@Override
-		public boolean touchUp(int screenX, int screenY, int pointer, int button) {
-			unprojectVec.set(screenX, screenY, 0);
- 		    cameraManager.getCamera().unproject(unprojectVec);
+	public Bounds getQuitSprite() {
+		return quitSprite;
+	}
 
-		    float x = unprojectVec.x;
-		    float y = unprojectVec.y;
+	public Bounds getSoundOnBounds() {
+		return soundOnBounds;
+	}
 
-		    if (playSprite.contains(x, y)) {    //start game
-		        game.getSceneFactory().loadScene(StonePits.GameState.START);
-		    }
+	public Bounds getSoundOffBounds() {
+		return soundOffBounds;
+	}
 
-		    if (quitSprite.contains(x, y)) {    //exit, make sense for desktop
-		        Gdx.app.exit();
-		    }
+	public Entity getSoundOnEntity() {
+		return soundOnEntity;
+	}
 
-		    if (soundOnBounds.contains(x, y) || soundOffBounds.contains(x, y)) { //switch off\on sound
-		        soundManager.resetSound();
-		        swapSpritesPosition(soundOnEntity, soundOffEntity);
-		    }
-			return true;
-		}
-
-		/**
-		 * If you have a several sprites for the same action
-		 * Hide one (out of screen) and show another
-		 * @param entity1 swap with other
-		 * @param entity2 swap with other
-		 */
-		public void swapSpritesPosition (Entity entity1, Entity entity2) {
-		      Transform transform1 = transformCm.get(entity1);
-		      Transform transform2 = transformCm.get(entity2);
-
-		      float xPos = transform1.getX(), yPos = transform1.getY();
-		      transform1.setPosition(transform2.getX(), transform2.getY());
-		      transform2.setPosition(xPos, yPos);
-		}
+	public Entity getSoundOffEntity() {
+		return soundOffEntity;
 	}
 }

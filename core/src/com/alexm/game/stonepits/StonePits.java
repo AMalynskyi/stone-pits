@@ -1,8 +1,8 @@
 package com.alexm.game.stonepits;
 
 
-import com.alexm.game.stonepits.manager.GameStateHandler;
-import com.alexm.game.stonepits.manager.SceneManagerFactory;
+import com.alexm.game.stonepits.manager.design.GameStateHandler;
+import com.alexm.game.stonepits.manager.design.SceneManagerFactory;
 import com.alexm.game.stonepits.manager.SoundManager;
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;

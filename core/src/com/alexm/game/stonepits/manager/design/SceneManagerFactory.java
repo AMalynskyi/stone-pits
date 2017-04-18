@@ -1,9 +1,11 @@
-package com.alexm.game.stonepits.manager;
+package com.alexm.game.stonepits.manager.design;
 
 import com.alexm.game.stonepits.StonePits;
 import com.alexm.game.stonepits.entity.system.FulfillMainScene;
 import com.alexm.game.stonepits.entity.system.PitsSystem;
 import com.alexm.game.stonepits.entity.system.SpriteBoundsSystem;
+import com.alexm.game.stonepits.manager.GameSceneManagerStrategy;
+import com.alexm.game.stonepits.manager.MenuSceneManagerStrategy;
 import com.artemis.BaseSystem;
 import com.artemis.managers.PlayerManager;
 import com.kotcrab.vis.runtime.RuntimeContext;
