@@ -32,6 +32,32 @@ https://github.com/AMalynskyi/stone-pits/tree/master/html/build/libs/stone-pits.
 6) Game engine testing
 https://github.com/AMalynskyi/stone-pits/tree/master/core/test
 
+## Design Patterns
+
+### Strategy Behavioral Design Pattern
+Classes:
+BaseSceneManagerStrategy
+GameSceneManagerStrategy
+
+### Chain Of Responsibility Object Behavioral Design Pattern
+Classes:
+GamePlayRuler
+RulesChainNode
+GrabOppositeStonesRule
+OneMoreTurnRule
+GameOverRule
+
+### State Behavioral Design Pattern
+Classes:
+GameStateHandler
+MenuStateHandler
+PlayStateHandler
+StartedStateHandler
+
+### Factory Class Design Pattern
+Classes:
+SceneManagerFactory
+
 ## Assembly
 
 Using Gradle there are following options to build project.
