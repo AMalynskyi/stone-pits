@@ -58,6 +58,10 @@ StartedStateHandler
 Classes:
 SceneManagerFactory
 
+### Singleton Design Pattern
+Classes:
+StonePits
+
 ## Assembly
 
 Using Gradle there are following options to build project.
